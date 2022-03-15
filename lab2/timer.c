@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include <minix/syslib.h>
+
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
@@ -32,16 +34,24 @@ void (timer_int_handler)() {
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+  uint32_t word = (TIMER_RB_SEL(timer) | BIT(5) | TIMER_RB_CMD);
+  sys_outb(TIMER_CTRL, word);
+  //if (out != 0) return out;
+  return util_sys_inb(TIMER_CTRL, st);
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
                         enum timer_status_field field) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+                      
+  /*timer_print_config(timer, field, 
+    timer_status_field_val(
+      st,
+      timer_init(
+
+      )
+    )
+  )
+  */
 
   return 1;
 }
