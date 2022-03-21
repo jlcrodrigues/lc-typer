@@ -31,11 +31,11 @@ int main(int argc, char *argv[]) {
 
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
   uint8_t conf = 0;
-  timer_get_conf(timer, &conf);
+  if(timer_get_conf(timer, &conf)) return 1;
 
-  timer_display_conf(timer, conf, field);
+  if(timer_display_conf(timer, conf, field)) return 1;
 
-  return 1;
+  return 0;
 }
 
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
