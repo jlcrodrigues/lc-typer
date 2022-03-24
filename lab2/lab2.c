@@ -5,6 +5,8 @@
 #include <stdint.h>
 
 
+extern uint32_t count_interrupts;
+
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -42,9 +44,39 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
   return timer_set_frequency(timer, freq);
 }
 
-int(timer_test_int)(uint8_t time) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
 
-  return 1;
+int(timer_test_int)(uint8_t time) {
+  const int freq = 60;
+  int ipc_status, r;
+  message msg;
+  uint8_t timer = 0;
+  count_interrupts = 0;
+  if (timer_subscribe_int(&timer)) return 1;
+  int irq_set = BIT(timer);
+  while (time) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: 
+          if (msg.m_notify.interrupts & irq_set) {
+            timer_int_handler();
+            if (!(count_interrupts % freq)) {
+              timer_print_elapsed_time();
+              time--;
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+
+    }
+  }
+  if (timer_unsubscribe_int()) return 1;
+  return 0;
 }
