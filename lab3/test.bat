@@ -1,5 +1,0 @@
-lcom_run lab3 "scan -t 1"
-lcom_run lab3 "scan -t 2"
-lcom_run lab3 "scan -t 3"
-lcom_run lab3 "scan -t 4"
-lcom_run lab3 "scan -t 5"

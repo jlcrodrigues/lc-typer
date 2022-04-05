@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <minix/syslib.h>
 
 extern uint8_t buff;
 extern uint8_t size;
@@ -43,7 +44,8 @@ int(kbd_test_scan)() {
   int ipc_status, r;
   message msg;
 
-  if (keyboard_subscribe_int()) return 1;
+  if (keyboard_subscribe_int())
+    return 1;
 
   while (buff != BREAKCODE_ESC) {
 
@@ -53,12 +55,12 @@ int(kbd_test_scan)() {
     }
     if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE: 
+        case HARDWARE:
           if (msg.m_notify.interrupts & KEYBOARD_IRQ) {
             kbc_ih();
 
             if (complete && !read_error) {
-              bool make = !(buff & MSB); 
+              bool make = !(buff & MSB);
 
               kbd_print_scancode(make, size, bytes);
             }
@@ -69,11 +71,11 @@ int(kbd_test_scan)() {
       }
     }
     else {
-
     }
   }
 
-  if (keyboard_unsubscribe_int()) return 1;
+  if (keyboard_unsubscribe_int())
+    return 1;
 
   kbd_print_no_sysinb(cnt);
 
@@ -81,10 +83,28 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  while (buff != BREAKCODE_ESC) {
+    kbc_ih();
 
-  return 1;
+    if (complete && !read_error) {
+      bool make = !(buff & MSB);
+
+      kbd_print_scancode(make, size, bytes);
+    }
+  }
+
+  kbd_print_no_sysinb(cnt);
+
+  uint8_t kbc = 0;
+  sys_outb(KEYBOARD_STATUS, READ_COMMAND_BYTE);
+  util_sys_inb(KEYBOARD_OUT_BUFF, &kbc);
+
+  kbc |= INTERRUPT_KEYBOARD_OBF;
+
+  sys_outb(KEYBOARD_STATUS, WRITE_COMMAND_BYTE);
+  sys_outb(KEYBOARD_OUT_BUFF, kbc);
+
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {

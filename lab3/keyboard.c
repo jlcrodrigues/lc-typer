@@ -21,6 +21,11 @@ void (kbc_ih)() {
     return;
   }
 
+  if (!(value & BUFFER_FULL)) {
+    read_error = 1;
+    return;
+  }
+
   if (value & KEYBOARD_TIMEOUT) {
     read_error = 1;
     return;
