@@ -18,6 +18,7 @@
 #define MSB BIT(7)
 
 #define BUFFER_FULL BIT(0)
+#define AUX BIT(5)
 #define KEYBOARD_PARITY BIT(7)
 #define KEYBOARD_TIMEOUT BIT(6)
 

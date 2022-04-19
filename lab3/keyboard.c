@@ -30,6 +30,11 @@ void (kbc_ih)() {
     read_error = 1;
     return;
   }
+  
+  if (value & AUX) {
+    read_error = 1;
+    return;
+  }
 
   bytes[size] = buff;
   size++;
@@ -40,9 +45,12 @@ void (kbc_ih)() {
   read_error = 0;
 }
 
-int hook = 0;
+static int hook = KEYBOARD_IRQ;
+//int hook = 0;
 
-int (keyboard_subscribe_int)() {
+int (keyboard_subscribe_int)(uint8_t *bit_no) {
+  hook = KEYBOARD_IRQ;
+  *bit_no = hook;
   return sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook);
 }
 
