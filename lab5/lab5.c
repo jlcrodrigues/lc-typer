@@ -6,6 +6,14 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "keyboard.h"
+
+extern uint8_t buff;
+extern uint8_t size;
+extern uint8_t bytes[];
+extern int read_error;
+extern bool complete;
+
 extern int count_interrupts;
 
 // Any header files included below this line should have been created by you
@@ -35,30 +43,43 @@ int main(int argc, char *argv[]) {
 }
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  printf("hello");
-  const int freq = 60;
-  int time = delay;
-  int ipc_status, r;
-  message msg;
-  uint8_t timer = 0;
-  count_interrupts = 0;
-  if (timer_subscribe_int(&timer)) return 1;
-  int irq_set = BIT(timer);
 
   vg_init(mode);
 
-  while (time) {
+  sleep(delay);
+
+  vg_exit();
+  return 0;
+}
+
+int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
+                          uint16_t width, uint16_t height, uint32_t color) {
+  int ipc_status, r;
+  uint8_t keyboard = 0;
+  message msg;
+  vg_init(mode);
+  vg_draw_rectangle(x, y, width, height, color);
+
+  if (keyboard_subscribe_int(&keyboard))
+    return 1;
+  int irq_set_keyboard = BIT(keyboard);
+
+  while (buff != BREAKCODE_ESC) {
+
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with %d", r);
       continue;
     }
     if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE: 
-          if (msg.m_notify.interrupts & irq_set) {
-            timer_int_handler();
-            if (!(count_interrupts % freq)) {
-              time--;
+        case HARDWARE:
+          if (msg.m_notify.interrupts & irq_set_keyboard) {
+            kbc_ih();
+
+            if (complete && !read_error) {
+              bool make = !(buff & MSB);
+
+              kbd_print_scancode(make, size, bytes);
             }
           }
           break;
@@ -67,21 +88,15 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
       }
     }
     else {
-
     }
   }
-  if (timer_unsubscribe_int()) return 1;
+
+  if (keyboard_unsubscribe_int())
+    return 1;
+
   vg_exit();
+
   return 0;
-}
-
-int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
-                          uint16_t width, uint16_t height, uint32_t color) {
-  /* To be completed */
-  printf("%s(0x%03X, %u, %u, %u, %u, 0x%08x): under construction\n",
-         __func__, mode, x, y, width, height, color);
-
-  return 1;
 }
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {

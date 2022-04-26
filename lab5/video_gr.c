@@ -5,11 +5,15 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "video.h"
+
 static char *video_mem; /* Process (virtual) address to which VRAM is mapped */
+static vbe_mode_info_t mode_info;
 
 static unsigned h_res;          /* Horizontal resolution in pixels */
 static unsigned v_res;          /* Vertical resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
+static unsigned bytes_per_pixel;
 
 int (map_memory)(vbe_mode_info_t mode_info) {
   struct minix_mem_range mr;
@@ -30,7 +34,6 @@ int (map_memory)(vbe_mode_info_t mode_info) {
   /* Map memory */
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
-  printf("dd");
 
   if (video_mem == MAP_FAILED)
     panic("couldn't map video memory");
@@ -38,19 +41,8 @@ int (map_memory)(vbe_mode_info_t mode_info) {
   return 0;
 }
 
-void *(vg_init) (uint16_t mode) {
-  printf("hello");
+void* (set_mode)(uint16_t mode) {
   reg86_t r86;
-
-  vbe_mode_info_t mode_info;
-  vbe_get_mode_info(mode, &mode_info);
-
-  h_res = mode_info.XResolution;
-  v_res = mode_info.YResolution;
-  bits_per_pixel = mode_info.BitsPerPixel;
-  if (map_memory(mode_info))
-    return NULL;
-
   /* Specify the appropriate register values */
   memset(&r86, 0, sizeof(r86)); /* zero the structure */
 
@@ -67,3 +59,41 @@ void *(vg_init) (uint16_t mode) {
   }
   return video_mem;
 }
+
+void *(vg_init) (uint16_t mode) {
+  vbe_get_mode_info(mode, &mode_info);
+
+  h_res = mode_info.XResolution;
+  v_res = mode_info.YResolution;
+  bits_per_pixel = mode_info.BitsPerPixel;
+  bytes_per_pixel = bits_per_pixel / 8;
+  if (map_memory(mode_info))
+    return NULL;
+
+  return set_mode(mode);
+}
+
+int (draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
+  if (x >= h_res || y >= v_res) {
+    return 1;
+  }
+  unsigned int pos = (x + y * h_res) * bytes_per_pixel;
+  memcpy((void *)((unsigned int) video_mem + pos), &color, bytes_per_pixel);
+  video_mem[pos] = color;
+  return 0;
+}
+
+int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
+  for (uint16_t i = 0; i < len; i++) {
+    if (draw_pixel(x + i, y, color)) return 1;
+  }
+  return 0;
+}
+
+int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width,
+ uint16_t height, uint32_t color) {
+   for (uint16_t i = 0; i < height; i++) {
+     if (vg_draw_hline(x, y + i, width, color)) return 1;
+   }
+   return 0;
+} 
