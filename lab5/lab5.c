@@ -148,10 +148,55 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  int ipc_status, r;
+  uint8_t keyboard = 0;
+  message msg;
 
-  return 1;
+  vg_init(0x105);
+
+  if (draw_sprite(xpm, x, y)) {
+    vg_exit();
+    return 1;
+  }
+
+
+  if (keyboard_subscribe_int(&keyboard))
+    return 1;
+  int irq_set_keyboard = BIT(keyboard);
+
+  while (buff != BREAKCODE_ESC) {
+
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & irq_set_keyboard) {
+            kbc_ih();
+
+            if (complete && !read_error) {
+              bool make = !(buff & MSB);
+
+              kbd_print_scancode(make, size, bytes);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+    }
+  }
+
+  if (keyboard_unsubscribe_int())
+    return 1;
+
+  vg_exit();
+
+  return 0;
 }
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,

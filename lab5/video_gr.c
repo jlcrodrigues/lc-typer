@@ -78,7 +78,6 @@ int(draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
     return 1;
   }
   unsigned int pos = (x + y * h_res) * bytes_per_pixel;
-  memcpy((void *) ((unsigned int) video_mem + pos), &color, bytes_per_pixel);
   video_mem[pos] = color;
   return 0;
 }
@@ -119,6 +118,23 @@ int(draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
       }
 
       vg_draw_rectangle(width * j, height * i, width, height, color);
+    }
+  }
+
+  return 0;
+}
+
+int (draw_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  enum xpm_image_type type = XPM_INDEXED;
+  xpm_image_t img;
+  uint8_t *sprite = xpm_load(xpm, type, &img);
+  if (sprite == NULL) return 1;
+
+  for (uint8_t i = 0; i < img.height; i++) {
+    for (uint8_t j = 0; j < img.width; j++) {
+      if (x + j < h_res && y + i < v_res) {
+        draw_pixel(x + j, y + i, sprite[j + i * img.width]);
+      }
     }
   }
 
