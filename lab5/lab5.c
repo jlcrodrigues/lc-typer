@@ -17,6 +17,8 @@ extern bool complete;
 
 extern int count_interrupts;
 
+static int count_frames = 0;
+
 // Any header files included below this line should have been created by you
 
 int main(int argc, char *argv[]) {
@@ -159,7 +161,6 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     return 1;
   }
 
-
   if (keyboard_subscribe_int(&keyboard))
     return 1;
   int irq_set_keyboard = BIT(keyboard);
@@ -199,13 +200,117 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
+void(get_coords)(uint16_t* xi, uint16_t* yi, uint16_t* xf, uint16_t* yf,
+                 int16_t speed) {
+  if (*xi < *xf) {
+    if (speed >= 0) {
+      *xi += speed;
+      if (*xi > *xf) *xi = *xf;
+    }
+    else {
+      count_frames++;
+      if (count_frames == 0 - speed) {
+        *xi += 1;
+        count_frames = 0;
+      }
+    }
+  }
+  if (*xi > *xf) {
+    if (speed >= 0) {
+      *xi -= speed;
+      if (*xi < *xf) *xi = *xf;
+    }
+    else {
+      count_frames++;
+      if (count_frames == 0 - speed) {
+        *xi -= 1;
+        count_frames = 0;
+      }
+    }
+  }
+  if (*yi < *yf) {
+    if (speed >= 0) {
+      *yi += speed;
+      if (*yi > *yf) *yi = *yf;
+    }
+    else {
+      count_frames++;
+      if (count_frames == 0 - speed) {
+        *yi += 1;
+        count_frames = 0;
+      }
+    }
+  }
+  if (*yi > *yf) {
+    if (speed >= 0) {
+      *yi -= speed;
+      if (*yi < *yf) *yi = *yf;
+    }
+    else {
+      count_frames++;
+      if (count_frames == 0 - speed) {
+        *yi -= 1;
+        count_frames = 0;
+      }
+    }
+  }
+}
+
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+  const int freq = fr_rate;
+  int ipc_status, r;
+  message msg;
+  uint8_t timer = 0;
+  uint8_t keyboard = 0;
 
-  return 1;
+  vg_init(0x105);
+  if (draw_sprite(xpm, xi, yi)) {
+    vg_exit();
+    return 1;
+  };
+
+  if (timer_set_frequency(0, freq))
+    return 1;
+  if (timer_subscribe_int(&timer))
+    return 1;
+  if (keyboard_subscribe_int(&keyboard))
+    return 1;
+  int irq_set_timer = BIT(timer);
+  int irq_set_keyboard = BIT(keyboard);
+
+  while (buff != BREAKCODE_ESC) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & irq_set_timer) {
+            get_coords(&xi, &yi, &xf, &yf, speed);
+            draw_sprite(xpm, xi, yi);
+          }
+          if (msg.m_notify.interrupts & irq_set_keyboard) {
+            kbc_ih();
+          }
+
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+    }
+  }
+
+  vg_exit();
+
+  if (keyboard_unsubscribe_int())
+    return 1;
+  if (timer_unsubscribe_int())
+    return 1;
+  return 0;
 }
 
 int(video_test_controller)() {

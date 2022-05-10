@@ -140,3 +140,7 @@ int (draw_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
   return 0;
 }
+
+void (clear_screen)() {
+  vg_draw_rectangle(0, 0, h_res, v_res, 0);
+}
