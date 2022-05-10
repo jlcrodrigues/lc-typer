@@ -288,6 +288,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE:
           if (msg.m_notify.interrupts & irq_set_timer) {
+            clear_screen();
             get_coords(&xi, &yi, &xf, &yf, speed);
             draw_sprite(xpm, xi, yi);
           }
@@ -304,12 +305,15 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
     }
   }
 
+  if (keyboard_unsubscribe_int()) {
+    vg_exit();
+    return 1;
+  }
+  if (timer_unsubscribe_int()) {
+    vg_exit();
+    return 1;
+  }
   vg_exit();
-
-  if (keyboard_unsubscribe_int())
-    return 1;
-  if (timer_unsubscribe_int())
-    return 1;
   return 0;
 }
 
