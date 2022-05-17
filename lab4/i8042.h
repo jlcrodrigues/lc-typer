@@ -1,0 +1,45 @@
+#ifndef _LCOM_I8042_H_
+#define _LCOM_I8042_H_
+
+#include <lcom/lcf.h>
+
+#define READ_COMMAND_BYTE 0x20
+#define WRITE_COMMAND_BYTE 0x60
+#define KEYBOARD_OUT_BUFF 0x60
+#define KEYBOARD_STATUS 0x64
+
+#define INTERRUPT_KEYBOARD_OBF BIT(0)
+
+#define KEYBOARD_IRQ 1
+
+#define BREAKCODE_ESC 0x81
+#define FIRST_BYTE 0xE0
+
+#define MSB BIT(7)
+
+#define BUFFER_FULL BIT(0)
+#define AUX BIT(5)
+#define KEYBOARD_PARITY BIT(7)
+#define KEYBOARD_TIMEOUT BIT(6)
+#define KEYBOARD_INB BIT(1)
+
+#define MOUSE_IRQ 12
+#define PACKET_NUMBER 3
+
+#define LEFT_BYTE BIT(0)
+#define RIGHT_BYTE BIT(1)
+#define MIDDLE_BYTE BIT(2)
+#define SIGN_X BIT(4)
+#define SIGN_Y BIT(5)
+#define OVFL_X BIT(6)
+#define OVFL_Y BIT(7)
+
+#define MOUSE_WRITE_COMMAND_BYTE 0xD4
+#define DISABLE_DATA_REPORTING 0xF5
+#define MOUSE_READ_MASK (BUFFER_FULL | !KEYBOARD_PARITY | AUX | !KEYBOARD_TIMEOUT)
+
+#define COMPLETE_SIGNAL 0xFF00
+
+#define ACK_SUCCESS 0xFA
+
+#endif
