@@ -12,8 +12,7 @@
 extern uint8_t buff;
 extern uint8_t size;
 extern uint8_t bytes[];
-extern int read_error;
-extern bool complete;
+extern bool read_ok;
 
 extern uint32_t count_interrupts;
 
@@ -64,7 +63,7 @@ int(kbd_test_scan)() {
           if (msg.m_notify.interrupts & irq_set_keyboard) {
             kbc_ih();
 
-            if (complete && !read_error) {
+            if (read_ok) {
               bool make = !(buff & MSB);
 
               kbd_print_scancode(make, size, bytes);
@@ -91,7 +90,7 @@ int(kbd_test_poll)() {
   while (buff != BREAKCODE_ESC) {
     kbc_ih();
 
-    if (complete && !read_error) {
+    if (read_ok) {
       bool make = !(buff & MSB);
 
       kbd_print_scancode(make, size, bytes);
@@ -146,7 +145,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
           if (msg.m_notify.interrupts & irq_set_keyboard) {
             kbc_ih();
 
-            if (complete) {
+            if (read_ok) {
               bool make = !(buff & MSB);
 
               kbd_print_scancode(make, size, bytes);
