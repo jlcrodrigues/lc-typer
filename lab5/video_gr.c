@@ -105,19 +105,18 @@ int(draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
 
   uint32_t color = 0;
 
-  for (uint8_t i = 0; i < no_rectangles; i++) {
-    for (uint8_t j = 0; j < no_rectangles; j++) {
+  for (uint8_t row = 0; row < no_rectangles; row++) {
+    for (uint8_t col = 0; col < no_rectangles; col++) {
       if (bytes_per_pixel == 1) {
-        color = (first + (i * no_rectangles + j) * step) % (1 << bits_per_pixel);
+        color = (first + (row * no_rectangles + col) * step) % (1 << bits_per_pixel);
       }
       else {
-        uint32_t red = ((RED(first) + j * step) % (1 << mode_info.RedMaskSize)) << 16;
-        uint32_t green = ((GREEN(first) + i * step) % (1 << mode_info.GreenMaskSize)) << 8;
-        uint32_t blue = (BLUE(first) + (j + i) * step) % (1 << mode_info.BlueMaskSize);
+        uint32_t red = ((RED(first) + col * step) % (1 << mode_info.RedMaskSize)) << 16;
+        uint32_t green = ((GREEN(first) + row * step) % (1 << mode_info.GreenMaskSize)) << 8;
+        uint32_t blue = (BLUE(first) + (col + row) * step) % (1 << mode_info.BlueMaskSize);
         color = red + green + blue;
       }
-
-      vg_draw_rectangle(width * j, height * i, width, height, color);
+      vg_draw_rectangle(width * col, height * row, width, height, color);
     }
   }
 
