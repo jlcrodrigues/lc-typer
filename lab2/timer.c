@@ -7,44 +7,36 @@
 
 #include "i8254.h"
 
-int (get_timer_port)(uint8_t timer) {
-  int read_port;
-  switch(timer) {
-      case 0: read_port = TIMER_0; break;
-      case 1: read_port = TIMER_1; break;
-      case 2: read_port = TIMER_2; break;
-      default: return 1;
-  }
-  return read_port;
-}
-
 int(timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if (freq > TIMER_FREQ || freq < TIMER_FREQ / UINT16_MAX) {
-        printf("Frequency out of bounds.\n");
-        return 1;
-    }
+    printf("Frequency out of bounds.\n");
+    return 1;
+  }
 
   uint8_t status = 0;
-  if (timer_get_conf(timer, &status)) return 1;
+  if (timer_get_conf(timer, &status))
+    return 1;
 
-  uint8_t word = 0;
-  word |= timer;
-  word = word << 6;
-  word |= MASK_INITIAL;
+  uint8_t word = (timer << 6) | MASK_INITIAL;
   status &= 0x0F;
   word |= status;
 
-  if (sys_outb(TIMER_CTRL, word)) return 1;
+  if (sys_outb(TIMER_CTRL, word))
+    return 1;
 
   uint16_t div = TIMER_FREQ / freq;
 
   uint8_t lsb = 0, msb = 0;
 
-  if (util_get_LSB(div, &lsb)) return 1;
-  if (util_get_MSB(div, &msb)) return 1;
+  if (util_get_LSB(div, &lsb))
+    return 1;
+  if (util_get_MSB(div, &msb))
+    return 1;
 
-  if (sys_outb(get_timer_port(timer), lsb)) return 1;
-  if (sys_outb(get_timer_port(timer), msb)) return 1;
+  if (sys_outb(TIMER_PORT(timer), lsb))
+    return 1;
+  if (sys_outb(TIMER_PORT(timer), msb))
+    return 1;
 
   return 0;
 }
@@ -55,7 +47,7 @@ int(timer_get_conf)(uint8_t timer, uint8_t *st) {
   uint32_t word = (TIMER_RB_SEL(timer) | TIMER_RB_COUNT_ | TIMER_RB_CMD);
   if (sys_outb(TIMER_CTRL, word))
     return 1;
-  return util_sys_inb(get_timer_port(timer), st);
+  return util_sys_inb(TIMER_PORT(timer), st);
 }
 
 int(timer_display_conf)(uint8_t timer, uint8_t st,
@@ -92,14 +84,16 @@ int(timer_display_conf)(uint8_t timer, uint8_t st,
   return 0;
 }
 
-int hook = 0;
+static int hook_timer = 0;
 
 int(timer_subscribe_int)(uint8_t *bit_no) {
-  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook);
+  hook_timer = TIMER0_IRQ;
+  *bit_no = TIMER0_IRQ;
+  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_timer);
 }
 
 int(timer_unsubscribe_int)() {
-  return sys_irqrmpolicy(&hook);
+  return sys_irqrmpolicy(&hook_timer);
 }
 
 uint32_t count_interrupts = 0;
@@ -107,4 +101,3 @@ uint32_t count_interrupts = 0;
 void(timer_int_handler)() {
   count_interrupts++;
 }
-
