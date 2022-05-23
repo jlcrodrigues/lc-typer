@@ -62,6 +62,8 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   message msg;
   vg_init(mode);
   vg_draw_rectangle(x, y, width, height, color);
+  if (vg_refresh())
+    return 1;
 
   if (keyboard_subscribe_int(&keyboard))
     return 1;
@@ -108,6 +110,8 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   message msg;
   vg_init(mode);
   if (draw_pattern(no_rectangles, first, step))
+    return 1;
+  if (vg_refresh())
     return 1;
 
   if (keyboard_subscribe_int(&keyboard))
@@ -160,6 +164,8 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     vg_exit();
     return 1;
   }
+  if (vg_refresh())
+    return 1;
 
   if (keyboard_subscribe_int(&keyboard))
     return 1;
@@ -269,6 +275,8 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
     vg_exit();
     return 1;
   };
+  if (vg_refresh())
+    return 1;
 
   if (timer_set_frequency(0, freq))
     return 1;
@@ -291,6 +299,8 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
             clear_screen();
             get_coords(&xi, &yi, &xf, &yf, speed);
             draw_sprite(xpm, xi, yi);
+            if (vg_refresh())
+              return 1;
           }
           if (msg.m_notify.interrupts & irq_set_keyboard) {
             kbc_ih();

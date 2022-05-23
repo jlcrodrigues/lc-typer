@@ -154,14 +154,12 @@ void (clear_screen)() {
 }
 
 int (vg_refresh)() {
-  // page flipping doesnt work with the tests
-  /*if (vbe_set_display_start(video_mem < buff ? v_res : 0))
+  if (vbe_set_display_start(video_mem < buff ? v_res : 0))
     return 1;
   char* tmp = video_mem;
   video_mem = buff;
   buff = tmp;
-  memset(buff, 0, vram_size);*/
-  memcpy(video_mem, buff, vram_size);
+  memset(buff, 0, vram_size);
   return 0;
 }
 
