@@ -7,7 +7,6 @@
 #include "mouse.h"
 
 extern uint32_t count_interrupts;
-extern bool mouse_read_ok;
 
 // Any header files included below this line should have been created by you
 
@@ -39,8 +38,8 @@ int (mouse_test_packet)(uint32_t cnt) {
   int ipc_status, r;
   message msg;
   uint8_t mouse = 0;
+  if (mouse_set_data_reporting(1)) return 1;
   if (mouse_subscribe_int(&mouse)) return 1;
-  if (mouse_enable_data_reporting()) return 1;
   int irq_set = BIT(mouse);
   while (cnt) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -52,7 +51,7 @@ int (mouse_test_packet)(uint32_t cnt) {
         case HARDWARE: 
           if (msg.m_notify.interrupts & irq_set) {
             mouse_ih();
-            if (mouse_read_ok) {
+            if (get_packets_count() == 3) {
               cnt--;
               struct packet pp = parse_packets();
               mouse_print_packet(&pp);
@@ -68,7 +67,7 @@ int (mouse_test_packet)(uint32_t cnt) {
     }
   }
   if (mouse_unsubscribe_int()) return 1;
-  if (mouse_disable_data_reporting()) return 1;
+  if (mouse_set_data_reporting(0)) return 1;
   return 0;
 }
 
@@ -78,9 +77,9 @@ int (mouse_test_async)(uint8_t idle_time) {
   message msg;
   uint8_t timer = 0, mouse = 0, time = idle_time;
   count_interrupts = 0;
+  if (mouse_set_data_reporting(1)) return 1;
   if (timer_subscribe_int(&timer)) return 1;
   if (mouse_subscribe_int(&mouse)) return 1;
-  if (mouse_enable_data_reporting()) return 1;
   int irq_set_timer = BIT(timer);
   int irq_set_mouse = BIT(mouse);
   while (time) {
@@ -99,7 +98,7 @@ int (mouse_test_async)(uint8_t idle_time) {
           }
           if (msg.m_notify.interrupts & irq_set_mouse) {
             mouse_ih();
-            if (mouse_read_ok) {
+            if (count_interrupts == 3) {
               time = idle_time;
               count_interrupts = 0;
               struct packet pp = parse_packets();
@@ -115,8 +114,8 @@ int (mouse_test_async)(uint8_t idle_time) {
 
     }
   }
+  if (mouse_set_data_reporting(0)) return 1;
   if (timer_unsubscribe_int()) return 1;
-  if (mouse_disable_data_reporting()) return 1;
   if (mouse_unsubscribe_int()) return 1;
   return 0;
 }
