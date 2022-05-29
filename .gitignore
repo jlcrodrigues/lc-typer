@@ -51,7 +51,9 @@ Module.symvers
 Mkfile.old
 dkms.confs
 
-lab2/.gdbinit
-lab2/lab2
-lab2/output.txt
-lab2/trace.txt
+proj/src/.gdbinit
+proj/src/proj
+proj/output.txt
+proj/trace.txt
+
+.vscode

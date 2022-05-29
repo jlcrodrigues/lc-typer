@@ -20,7 +20,7 @@ void(kbc_ih)() {
   if (value & KBC_READ_MASK)
     return;
 
-  if (!(value & BUFFER_FULL))
+  if (!(value & OUT_BUFFER_FULL))
     return;
 
   bytes[size] = buff;
