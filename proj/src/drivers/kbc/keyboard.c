@@ -42,3 +42,22 @@ int(keyboard_subscribe_int)(uint8_t *bit_no) {
 int(keyboard_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_keyboard);
 }
+
+static char first_row[] = {'q','w','e','r','t','y','u','i','o','p'};
+static char second_row[] = {'a','s','d','f','g','h','j','k','l'};
+static char third_row[] = {'z','x','c','v','b','n','m'};
+
+char getLetter(){
+
+  if ((buff >= 0x10) && (buff <= 0x19)){ //buff is between 'q' and 'p'
+    return first_row[buff - 0x10];
+  }
+  else if ((buff >= 0x1e) && (buff <= 0x26)){ //buff between 'a' and 'l'
+    return second_row[buff - 0x1e];
+  }
+  else if ((buff >= 0x2c) && (buff <= 0x32)){ //buff between 'z' and 'm'
+    return third_row[buff - 0x2c];
+  }
+
+  return '\0';
+}

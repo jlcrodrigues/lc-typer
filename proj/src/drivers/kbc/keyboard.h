@@ -26,4 +26,10 @@ int (keyboard_subscribe_int)(uint8_t *bit_no);
  */
 int (keyboard_unsubscribe_int)();
 
+/**
+ * @brief Tranform a makecode into a char.
+ * @return Returns char from keyboard (makecode).
+ */
+char getLetter();
+
 #endif
