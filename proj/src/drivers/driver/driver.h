@@ -5,8 +5,10 @@
 #include "keyboard.h"
 #include "mouse.h"
 #include "video.h"
+#include "timer.h"
+#include "event.h"
 
-typedef enum LoopState {CONTINUE, OVER, ERROR} LoopState;
+typedef enum {CONTINUE, OVER, ERROR, EVENT} LoopState;
 
 /**
  * @brief Subscribe interrupts: keyboard, mouse, timer.
@@ -20,6 +22,19 @@ int (subscribe_interrupts)(void);
  */
 int (unsubscribe_interrupts)(void);
 
+/**
+ * @brief Checks for interrupts. If any occurred, creates a 
+ * Event struct with all the necessary information.
+ * 
+ * @return LoopState Current loop state after looking for interrupts.
+ */
 LoopState (interrupt_handler)(void);
+
+/**
+ * @brief Get the last event that occurred
+ * 
+ * @return Event Event struct (supports all different interrupts)
+ */
+Event get_event();
 
 #endif

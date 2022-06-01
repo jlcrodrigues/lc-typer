@@ -6,6 +6,9 @@ static int irq_timer;
 
 extern int read_ok;
 
+/** @brief Last event generated. */
+static Event event;
+
 int(subscribe_interrupts)() {
   uint8_t bit_no = 0;
   if (keyboard_subscribe_int(&bit_no)) {
@@ -37,6 +40,7 @@ int(unsubscribe_interrupts)() {
 
 LoopState(interrupt_handler)() {
   message msg;
+  LoopState result = CONTINUE;
 
   /* Get a request message. */
   if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -48,8 +52,17 @@ LoopState(interrupt_handler)() {
       case HARDWARE:                                  /* hardware interrupt notification */
         if (msg.m_notify.interrupts & irq_keyboard) { /* subscribed interrupt */
           kbc_ih();
-          if (read_ok) return OVER;
+          if (keyboard_is_complete()) {
+            event = keyboard_get_event();
+            result = EVENT;
+          }
         }
+        if (msg.m_notify.interrupts & irq_timer) { /* subscribed interrupt */
+          timer_ih();
+          event = timer_get_event();
+          result = EVENT;
+        }
+        //TODO create mouse events
         break;
       default:
         break; /* no other notifications expected: do nothing */
@@ -58,5 +71,9 @@ LoopState(interrupt_handler)() {
   else { /* received a standard message, not a notification */
          /* no standard messages expected: do nothing */
   }
-  return CONTINUE;
+  return result;
+}
+
+Event get_event() {
+  return event;
 }

@@ -1,9 +1,13 @@
 #include "keyboard.h"
 
-uint8_t buff = 0;
-uint8_t size = 0;
-uint8_t bytes[8];
-bool read_ok = 0;
+static uint8_t buff = 0;
+static uint8_t size = 0;
+static uint8_t bytes[4];
+static bool read_ok = 0;
+
+static char first_row[] = {'q','w','e','r','t','y','u','i','o','p'};
+static char second_row[] = {'a','s','d','f','g','h','j','k','l'};
+static char third_row[] = {'z','x','c','v','b','n','m'};
 
 void(kbc_ih)() {
   if (read_ok) {
@@ -43,9 +47,17 @@ int(keyboard_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_keyboard);
 }
 
-static char first_row[] = {'q','w','e','r','t','y','u','i','o','p'};
-static char second_row[] = {'a','s','d','f','g','h','j','k','l'};
-static char third_row[] = {'z','x','c','v','b','n','m'};
+int (keyboard_is_complete)() {
+  return read_ok;
+}
+
+Event (keyboard_get_event)(void) {
+  Event event;
+  event.type = KEYBOARD;
+  event.info.keyboard.size = size;
+  event.info.keyboard.character = getLetter();
+  return event;
+}
 
 char getLetter(){
 
