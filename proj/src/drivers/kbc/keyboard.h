@@ -42,4 +42,10 @@ int (keyboard_is_complete)();
  */
 Event (keyboard_get_event)(void);
 
+/**
+ * @brief Tranform a makecode into a char.
+ * @return Returns char from keyboard (makecode).
+ */
+char getLetter();
+
 #endif

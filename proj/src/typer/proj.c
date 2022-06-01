@@ -42,13 +42,16 @@ int (proj_main_loop)(int argc, char* argv[]) {
     if (loop != EVENT) continue;
 
     Event event = get_event();
-    if (event.type == KEYBOARD) break;
+    if (event.type == KEYBOARD) {
+      if (event.info.keyboard.character == 'q') break;
+    }
 
     switch (state) {
       case MENU:
-        //handle event
+        //handle event with menu function
         break;
       case GAME:
+        //handle event with game function
         break;
       default:
         return 1;

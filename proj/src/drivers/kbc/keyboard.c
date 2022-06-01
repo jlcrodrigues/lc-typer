@@ -5,6 +5,10 @@ static uint8_t size = 0;
 static uint8_t bytes[4];
 static bool read_ok = 0;
 
+static char first_row[] = {'q','w','e','r','t','y','u','i','o','p'};
+static char second_row[] = {'a','s','d','f','g','h','j','k','l'};
+static char third_row[] = {'z','x','c','v','b','n','m'};
+
 void(kbc_ih)() {
   if (read_ok) {
     read_ok = 0;
@@ -51,6 +55,21 @@ Event (keyboard_get_event)(void) {
   Event event;
   event.type = KEYBOARD;
   event.info.keyboard.size = size;
-  event.info.keyboard.character = '\0'; //TODO convert make code
+  event.info.keyboard.character = getLetter();
   return event;
+}
+
+char getLetter(){
+
+  if ((buff >= 0x10) && (buff <= 0x19)){ //buff is between 'q' and 'p'
+    return first_row[buff - 0x10];
+  }
+  else if ((buff >= 0x1e) && (buff <= 0x26)){ //buff between 'a' and 'l'
+    return second_row[buff - 0x1e];
+  }
+  else if ((buff >= 0x2c) && (buff <= 0x32)){ //buff between 'z' and 'm'
+    return third_row[buff - 0x2c];
+  }
+
+  return '\0';
 }
