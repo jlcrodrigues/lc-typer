@@ -1,11 +1,6 @@
-#include <lcom/lcf.h>
-#include <lcom/timer.h>
+#include "timer.h"
 
-#include <stdint.h>
-
-#include <minix/syslib.h>
-
-#include "i8254.h"
+static uint32_t count_interrupts = 0;
 
 int(timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if (freq > TIMER_FREQ || freq < TIMER_FREQ / UINT16_MAX) {
@@ -96,8 +91,17 @@ int(timer_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_timer);
 }
 
-uint32_t count_interrupts = 0;
-
-void(timer_int_handler)() {
+void (timer_ih)(void) {
   count_interrupts++;
+}
+
+Event (timer_get_event)(void) {
+  Event event;
+  event.type = TIMER;
+  event.info.timer.count_interrupts = count_interrupts;
+  return event;
+}
+
+void (reset_interrupts)(void) {
+  count_interrupts = 0;
 }

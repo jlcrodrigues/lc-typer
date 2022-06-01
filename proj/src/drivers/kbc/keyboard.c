@@ -1,9 +1,9 @@
 #include "keyboard.h"
 
-uint8_t buff = 0;
-uint8_t size = 0;
-uint8_t bytes[8];
-bool read_ok = 0;
+static uint8_t buff = 0;
+static uint8_t size = 0;
+static uint8_t bytes[4];
+static bool read_ok = 0;
 
 void(kbc_ih)() {
   if (read_ok) {
@@ -41,4 +41,16 @@ int(keyboard_subscribe_int)(uint8_t *bit_no) {
 
 int(keyboard_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_keyboard);
+}
+
+int (keyboard_is_complete)() {
+  return read_ok;
+}
+
+Event (keyboard_get_event)(void) {
+  Event event;
+  event.type = KEYBOARD;
+  event.info.keyboard.size = size;
+  event.info.keyboard.character = '\0'; //TODO convert make code
+  return event;
 }

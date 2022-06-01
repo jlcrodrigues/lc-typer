@@ -1,5 +1,7 @@
 #include "proj.h"
 
+static State state = MENU;
+
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -27,14 +29,31 @@ int main(int argc, char *argv[]) {
 int (proj_main_loop)(int argc, char* argv[]) {
   LoopState loop = CONTINUE;
   vg_init(VIDEO_MODE);
+
   if (subscribe_interrupts()) return 1;
 
   vg_draw_rectangle(300, 500, 50, 60, 0x1f3f1f);
   vg_refresh();
 
-  while (loop == CONTINUE) {
+  while (loop == CONTINUE || loop == EVENT) {
     loop = interrupt_handler();
+
     if (loop == ERROR) return 1;
+    if (loop != EVENT) continue;
+
+    Event event = get_event();
+    if (event.type == KEYBOARD) break;
+
+    switch (state) {
+      case MENU:
+        //handle event
+        break;
+      case GAME:
+        break;
+      default:
+        return 1;
+    }
+
   }
 
   int unsub = unsubscribe_interrupts();
