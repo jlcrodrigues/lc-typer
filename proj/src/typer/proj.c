@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
+  //lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
@@ -32,8 +32,9 @@ int (proj_main_loop)(int argc, char* argv[]) {
 
   if (subscribe_interrupts()) return 1;
 
-  vg_draw_rectangle(300, 500, 50, 60, 0x1f3f1f);
-  vg_refresh();
+  mouse_sprite mouse;
+  mouse_sprite_create(&mouse);
+
 
   while (loop == CONTINUE || loop == EVENT) {
     loop = interrupt_handler();
@@ -42,6 +43,8 @@ int (proj_main_loop)(int argc, char* argv[]) {
     if (loop != EVENT) continue;
 
     Event event = get_event();
+
+    mouse_sprite_step(&mouse, event);
     if (event.type == KEYBOARD) {
       if (event.info.keyboard.character == 'q') break;
     }
@@ -57,10 +60,13 @@ int (proj_main_loop)(int argc, char* argv[]) {
         return 1;
     }
 
+    if (event.type == TIMER) {
+        vg_refresh(); //TODO make refresh dependant of timer
+    }
   }
 
-  int unsub = unsubscribe_interrupts();
-  if (vg_exit() || unsub) return 1;
+  int exit = unsubscribe_interrupts();
+  if (vg_exit() || exit) return 1;
 
   return 0;
 }

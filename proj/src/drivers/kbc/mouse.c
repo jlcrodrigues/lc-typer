@@ -22,7 +22,8 @@ int (get_packets_count)() {
 
 int (mouse_set_data_reporting)(bool set) {
   if (set) {
-    if (send_mouse_cmd(ENABLE_DATA_REPORTING)) return 1;
+    //if (send_mouse_cmd(ENABLE_DATA_REPORTING)) return 1; //TODO
+    mouse_enable_data_reporting();
   }
   else {
     if (send_mouse_cmd(DISABLE_DATA_REPORTING)) return 1;
@@ -83,12 +84,28 @@ int (send_mouse_cmd)(uint32_t cmd) {
 
 int (mouse_read)(uint8_t *byte) {
   uint8_t st = 0;
-  if(util_sys_inb(KBC_STATUS, &st)) return 1;
-  if((st & OUT_BUFFER_FULL) && (st & AUX)) {
-      if (st & (KEYBOARD_PARITY | KEYBOARD_TIMEOUT)) return 1;
-      if (util_sys_inb(KBC_OUT_BUFF, byte)) return 1;
-      else return 0;
+  for (int i = 0; i < KBC_TRIES_NUM; i++) {
+    if(util_sys_inb(KBC_STATUS, &st)) return 1;
+    if((st & OUT_BUFFER_FULL) && (st & AUX)) {
+        if (st & (KEYBOARD_PARITY | KEYBOARD_TIMEOUT)) return 1;
+        if (util_sys_inb(KBC_OUT_BUFF, byte)) return 1;
+        else return 0;
+    }
+    tickdelay(20);
   }
-  tickdelay(20);
   return 1;
+}
+
+Event (mouse_get_event)(void) {
+  Event event;
+  if (packets_count != 3) {
+    event.type = BLANK;
+    return event;
+  }
+  event.type = MOUSE;
+  struct packet p = parse_packets();
+  event.info.mouse.x_delta = p.delta_x;
+  event.info.mouse.y_delta = p.delta_y;
+  event.info.mouse.clicked = p.lb;
+  return event;
 }
