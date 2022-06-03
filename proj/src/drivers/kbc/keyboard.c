@@ -70,6 +70,9 @@ char getLetter(){
   else if ((buff >= 0x2c) && (buff <= 0x32)){ //buff between 'z' and 'm'
     return third_row[buff - 0x2c];
   }
+  else if (buff == 0x39) { //space bar
+    return ' ';
+  }
 
   return '\0';
 }

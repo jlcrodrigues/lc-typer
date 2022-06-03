@@ -1,6 +1,6 @@
 #include "proj.h"
 
-static State state = MENU;
+static State state = GAME;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
+  //lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
@@ -35,6 +35,9 @@ int (proj_main_loop)(int argc, char* argv[]) {
   vg_draw_rectangle(300, 500, 50, 60, 0x1f3f1f);
   vg_refresh();
 
+  Game game;
+  game_create(&game);
+
   while (loop == CONTINUE || loop == EVENT) {
     loop = interrupt_handler();
 
@@ -51,13 +54,14 @@ int (proj_main_loop)(int argc, char* argv[]) {
         //handle event with menu function
         break;
       case GAME:
-        //handle event with game function
+        game_step(&game, event);
         break;
       default:
         return 1;
     }
-
+    vg_refresh();
   }
+
 
   int unsub = unsubscribe_interrupts();
   if (vg_exit() || unsub) return 1;

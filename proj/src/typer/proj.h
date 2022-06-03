@@ -5,6 +5,7 @@
 
 #include <lcom/lcf.h>
 #include "driver.h"
+#include "game.h"
 
 typedef enum {MENU, GAME} State;
 
