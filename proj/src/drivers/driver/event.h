@@ -1,7 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-typedef enum {KEYBOARD, MOUSE, TIMER} EventType;
+typedef enum {KEYBOARD, MOUSE, TIMER, BLANK} EventType;
 
 typedef struct Event {
   EventType type;
@@ -14,8 +14,9 @@ typedef struct Event {
       char character;
     } keyboard;
     struct mouse { // mouse
-      uint16_t x_pos;
-      uint16_t y_pos;
+      int16_t x_delta;
+      int16_t y_delta;
+      int clicked;
     } mouse;
   } info;
 } Event;

@@ -32,8 +32,9 @@ int (proj_main_loop)(int argc, char* argv[]) {
 
   if (subscribe_interrupts()) return 1;
 
-  vg_draw_rectangle(300, 500, 50, 60, 0x1f3f1f);
-  vg_refresh();
+  mouse_sprite mouse;
+  mouse_sprite_create(&mouse);
+
 
   Game game;
   game_create(&game);
@@ -45,6 +46,8 @@ int (proj_main_loop)(int argc, char* argv[]) {
     if (loop != EVENT) continue;
 
     Event event = get_event();
+
+    mouse_sprite_step(&mouse, event);
     if (event.type == KEYBOARD) {
       if (event.info.keyboard.character == 'q') break;
     }
@@ -59,12 +62,14 @@ int (proj_main_loop)(int argc, char* argv[]) {
       default:
         return 1;
     }
-    vg_refresh();
+
+    if (event.type == TIMER) {
+        vg_refresh(); //TODO make refresh dependant of timer
+    }
   }
 
-
-  int unsub = unsubscribe_interrupts();
-  if (vg_exit() || unsub) return 1;
+  int exit = unsubscribe_interrupts();
+  if (vg_exit() || exit) return 1;
 
   return 0;
 }

@@ -1,5 +1,7 @@
 #include <lcom/lcf.h>
+
 #include "i8042.h"
+#include "event.h"
 
 /**
  * @brief Subscribe mouse interrupts and disable Minix's default handler.
@@ -46,3 +48,10 @@ int (mouse_read)(uint8_t *byte);
  * @return The amount of read packets varies from 0 to 3 (complete).
  */
 int (get_packets_count)();
+
+/**
+ * @brief If all packets have been set, it generates an Event with mouse data.
+ * 
+ * @return Event struct with proper data set.
+ */
+Event (mouse_get_event)(void);

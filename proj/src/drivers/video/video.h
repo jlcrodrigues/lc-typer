@@ -1,4 +1,8 @@
+#ifndef VIDEO_H
+#define VIDEO_H
+
 #include <lcom/lcf.h>
+#include "sprite.h"
 
 /** @defgroup video
  * @{
@@ -46,11 +50,12 @@ int (draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 
 /**
  * @brief Draw a xpm to the screen at a specific coordinate.
+ * @param Sprite Sprite struct with image and pix map.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @return int 0 upon success, non-zero otherwise
  */
-int (draw_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y);
+int (draw_sprite)(Sprite sprite, uint16_t x, uint16_t y);
 
 /**
  * @brief Fill the whole screen black.
@@ -72,4 +77,18 @@ int (vg_refresh)();
  */
 int vbe_set_display_start(uint16_t start);
 
+/**
+ * @brief Get the vertical resolution of the screen.
+ * @return int16_t Screen vertical size in pixels.
+ */
+int16_t (video_get_v_res)(void);
+
+/**
+ * @brief Get the horizontal resolution of the screen.
+ * @return int16_t Screen horizontal size in pixels.
+ */
+int16_t (video_get_h_res)(void);
+
 /**@}*/
+
+#endif
