@@ -1,9 +1,12 @@
 #include "mouse_sprite.h"
 
+static Sprite sprite;
+
 void mouse_sprite_create(mouse_sprite* mouse) {
   mouse->x_pos = MOUSE_START;
   mouse->y_pos = MOUSE_START;
   mouse->clicked = 0;
+  sprite = create_sprite(mouse_xpm);
 }
 
 void mouse_sprite_handle_event(mouse_sprite* mouse, Event event) {
@@ -18,7 +21,8 @@ void mouse_sprite_handle_event(mouse_sprite* mouse, Event event) {
 }
 
 void mouse_sprite_draw(mouse_sprite* mouse) {
-  vg_draw_rectangle(mouse->x_pos, mouse->y_pos, 10, 10, 0xffffff);
+  if (draw_sprite(sprite, mouse->x_pos, mouse->y_pos))
+    return;
 }
 
 void mouse_sprite_step(mouse_sprite* mouse, Event event) {

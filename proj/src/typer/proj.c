@@ -35,8 +35,6 @@ int (proj_main_loop)(int argc, char* argv[]) {
   mouse_sprite mouse;
   mouse_sprite_create(&mouse);
 
-  vg_draw_rectangle(300, 500, 50, 60, 0x1f3f1f);
-  vg_refresh();
 
   while (loop == CONTINUE || loop == EVENT) {
     loop = interrupt_handler();
@@ -62,7 +60,9 @@ int (proj_main_loop)(int argc, char* argv[]) {
         return 1;
     }
 
-    vg_refresh(); //TODO make refresh dependant of timer
+    if (event.type == TIMER) {
+        vg_refresh(); //TODO make refresh dependant of timer
+    }
   }
 
   int exit = unsubscribe_interrupts();

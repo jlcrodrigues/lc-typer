@@ -7,6 +7,7 @@
 #include "video.h"
 #include "timer.h"
 #include "event.h"
+#include "sprite.h"
 
 typedef enum {CONTINUE, OVER, ERROR, EVENT} LoopState;
 

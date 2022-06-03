@@ -131,17 +131,14 @@ int(draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   return 0;
 }
 
-int(draw_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  enum xpm_image_type type = XPM_INDEXED;
-  xpm_image_t img;
-  uint8_t *sprite = xpm_load(xpm, type, &img);
-  if (sprite == NULL)
+int(draw_sprite)(Sprite sprite, uint16_t x, uint16_t y) {
+  if (sprite.pix_map == NULL)
     return 1;
 
-  for (uint8_t i = 0; i < img.height; i++) {
-    for (uint8_t j = 0; j < img.width; j++) {
+  for (uint8_t i = 0; i < sprite.img.height; i++) {
+    for (uint8_t j = 0; j < sprite.img.width; j++) {
       if (x + j < h_res && y + i < v_res) {
-        if (draw_pixel(x + j, y + i, sprite[j + i * img.width]))
+        if (draw_pixel(x + j, y + i, sprite.pix_map[j + i * sprite.img.width]))
           return 1;
       }
     }
