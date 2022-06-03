@@ -1,3 +1,6 @@
+#ifndef VIDEO_H
+#define VIDEO_H
+
 #include <lcom/lcf.h>
 
 /** @defgroup video
@@ -72,4 +75,18 @@ int (vg_refresh)();
  */
 int vbe_set_display_start(uint16_t start);
 
+/**
+ * @brief Get the vertical resolution of the screen.
+ * @return int16_t Screen vertical size in pixels.
+ */
+int16_t (video_get_v_res)(void);
+
+/**
+ * @brief Get the horizontal resolution of the screen.
+ * @return int16_t Screen horizontal size in pixels.
+ */
+int16_t (video_get_h_res)(void);
+
 /**@}*/
+
+#endif

@@ -182,3 +182,11 @@ int vbe_set_display_start(uint16_t start) {
   }
   return 0;
 }
+
+int16_t (video_get_v_res)(void) {
+  return (int16_t) v_res;
+}
+
+int16_t (video_get_h_res)(void) {
+  return (int16_t) h_res;
+}

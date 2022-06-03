@@ -14,8 +14,8 @@ typedef struct Event {
       char character;
     } keyboard;
     struct mouse { // mouse
-      uint16_t x_delta;
-      uint16_t y_delta;
+      int16_t x_delta;
+      int16_t y_delta;
       int clicked;
     } mouse;
   } info;

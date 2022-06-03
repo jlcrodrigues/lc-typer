@@ -4,12 +4,13 @@
 #include <lcom/lcf.h>
 
 #include "driver.h"
+#include "video.h"
 
 #define MOUSE_START 300
 
 typedef struct mouse_sprite {
-  uint16_t x_pos;
-  uint16_t y_pos;
+  int16_t x_pos;
+  int16_t y_pos;
   int clicked;
 } mouse_sprite;
 
