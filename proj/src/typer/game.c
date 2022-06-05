@@ -1,11 +1,10 @@
 #include "game.h"
 
-int game_create(Game* game) {
+void game_create(Game* game) {
   game->player_position = 0;
   game->text = "hello world"; //TODO issue #3 generate sentences 
   game->text_size = 11;
   game->time_elapsed = 0;
-  return 0;
 }
 
 void game_draw(Game* game) {
@@ -21,8 +20,9 @@ void game_draw(Game* game) {
 
 void game_handle_event(Game* game, Event event) {
   if (event.type == KEYBOARD) {
-    if (event.info.keyboard.character == 'q') proj_set_state(OVER);
+    if (event.info.keyboard.buff == 0x81) proj_set_state(MENU);
     if (game->text[game->player_position] == event.info.keyboard.character) {
+      if (game->player_position == 1) game->time_elapsed = 0;
       game->player_position++;
       if (game->player_position == game->text_size) {
         printf("wpm: %d\n", (int)(((double)(game->player_position) / 5) / ((double)(game->time_elapsed) / 60)));

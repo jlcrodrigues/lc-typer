@@ -1,6 +1,12 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+/** @defgroup kbc keyboard
+ * @{
+ *
+ * Functions related to the keyboard driver.
+ */
+
 #include <lcom/lcf.h>
 #include <stdint.h>
 
@@ -47,5 +53,7 @@ Event (keyboard_get_event)(void);
  * @return Returns char from keyboard (makecode).
  */
 char getLetter();
+
+/**@}*/
 
 #endif

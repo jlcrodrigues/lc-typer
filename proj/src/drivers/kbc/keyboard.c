@@ -55,6 +55,7 @@ Event (keyboard_get_event)(void) {
   Event event;
   event.type = KEYBOARD;
   event.info.keyboard.size = size;
+  event.info.keyboard.buff = buff;
   event.info.keyboard.character = getLetter();
   return event;
 }

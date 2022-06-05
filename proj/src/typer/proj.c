@@ -1,6 +1,6 @@
 #include "proj.h"
 
-static State state = GAME;
+static State state = MENU;
 static Game game;
 static mouse_sprite mouse;
 
@@ -78,6 +78,7 @@ void proj_set_state(State new_state) {
       proj_step_state = proj_step_game;
       break;
     case MENU:
+      proj_step_state = menu_step;
       break;
     default:
       break;

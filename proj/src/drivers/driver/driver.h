@@ -1,6 +1,12 @@
 #ifndef DRIVER_H
 #define DRIVER_H
 
+/** @defgroup driver driver
+ * @{
+ *
+ * Groups all the functions related to the different drivers.
+ */
+
 #include <lcom/lcf.h>
 #include "keyboard.h"
 #include "mouse.h"
@@ -35,5 +41,7 @@ int (interrupt_handler)(void);
  * @return Event Event struct (supports all different interrupts)
  */
 Event get_event();
+
+/**@}*/
 
 #endif
