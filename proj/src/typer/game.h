@@ -3,11 +3,12 @@
 
 #include <lcom/lcf.h>
 #include "driver.h"
+#include "proj.h"
 
 typedef struct Game {
-  size_t player_position;
+  int player_position;
   char* text;
-  size_t text_size;
+  int text_size;
   int time_elapsed;
 } Game;
 

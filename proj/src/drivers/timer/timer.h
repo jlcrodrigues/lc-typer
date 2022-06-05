@@ -36,6 +36,13 @@ Event (timer_get_event)();
  */
 void (reset_interrupts)(void);
 
+/**
+ * @brief Get the frequency the timer is operating at.
+ * 
+ * @return int Timer frequency.
+ */
+int (timer_get_freq)(void);
+
 /**@}*/
 
 #endif

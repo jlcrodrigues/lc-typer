@@ -1,6 +1,7 @@
 #include "proj.h"
 
 static State state = GAME;
+static Game game;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -35,9 +36,7 @@ int (proj_main_loop)(int argc, char* argv[]) {
   mouse_sprite mouse;
   mouse_sprite_create(&mouse);
 
-
-  Game game;
-  game_create(&game);
+  proj_set_state(state);
 
   while (loop == CONTINUE || loop == EVENT) {
     loop = interrupt_handler();
@@ -72,4 +71,14 @@ int (proj_main_loop)(int argc, char* argv[]) {
   if (vg_exit() || exit) return 1;
 
   return 0;
+}
+
+void proj_set_state(State new_state) {
+  state = new_state;
+  switch (new_state) {
+    case GAME:
+      game_create(&game);
+    case MENU:
+      break;
+  }
 }

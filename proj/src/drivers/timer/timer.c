@@ -105,3 +105,7 @@ Event (timer_get_event)(void) {
 void (reset_interrupts)(void) {
   count_interrupts = 0;
 }
+
+int (timer_get_freq)(void) {
+  return sys_hz();
+}

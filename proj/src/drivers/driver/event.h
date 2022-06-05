@@ -7,7 +7,7 @@ typedef struct Event {
   EventType type;
   union {
     struct timer { // timer
-      int count_interrupts;
+      uint32_t count_interrupts;
     } timer;
     struct keyboard { //keyboard
       uint8_t size;
