@@ -9,8 +9,6 @@
 #include "event.h"
 #include "sprite.h"
 
-typedef enum {CONTINUE, OVER, ERROR, EVENT} LoopState;
-
 /**
  * @brief Subscribe interrupts: keyboard, mouse, timer.
  * @return int Returns zero upon success.
@@ -27,9 +25,9 @@ int (unsubscribe_interrupts)(void);
  * @brief Checks for interrupts. If any occurred, creates a 
  * Event struct with all the necessary information.
  * 
- * @return LoopState Current loop state after looking for interrupts.
+ * @return int Returns 1 if any interrupt occurred and 0 otherwise.
  */
-LoopState (interrupt_handler)(void);
+int (interrupt_handler)(void);
 
 /**
  * @brief Get the last event that occurred

@@ -21,6 +21,7 @@ void game_draw(Game* game) {
 
 void game_handle_event(Game* game, Event event) {
   if (event.type == KEYBOARD) {
+    if (event.info.keyboard.character == 'q') proj_set_state(OVER);
     if (game->text[game->player_position] == event.info.keyboard.character) {
       game->player_position++;
       if (game->player_position == game->text_size) {
