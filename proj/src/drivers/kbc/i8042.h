@@ -3,7 +3,7 @@
 
 #include <lcom/lcf.h>
 
-/** @defgroup i8042 i8042
+/** @defgroup kbc i8042
  * @{
  *
  * Constants for programming the i8042 KBC.

@@ -1,6 +1,10 @@
 #include "proj.h"
 
 static State state = MENU;
+static Game game;
+static mouse_sprite mouse;
+
+static void (*proj_step_state)(Event event);
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -27,46 +31,60 @@ int main(int argc, char *argv[]) {
 }
 
 int (proj_main_loop)(int argc, char* argv[]) {
-  LoopState loop = CONTINUE;
+  if (proj_setup()) return 1;
+
+  while (state != OVER) {
+    proj_step();
+  }
+
+  return proj_cleanup();
+}
+
+int proj_setup(void) {
   vg_init(VIDEO_MODE);
 
   if (subscribe_interrupts()) return 1;
 
-  mouse_sprite mouse;
   mouse_sprite_create(&mouse);
 
+  proj_set_state(state);
+  return 0;
+}
 
-  while (loop == CONTINUE || loop == EVENT) {
-    loop = interrupt_handler();
+void proj_step(void) {
+  if (!interrupt_handler()) // no interrupts
+    return;
+  Event event = get_event();
+  mouse_sprite_step(&mouse, event);
 
-    if (loop == ERROR) return 1;
-    if (loop != EVENT) continue;
+  proj_step_state(event);
 
-    Event event = get_event();
-
-    mouse_sprite_step(&mouse, event);
-    if (event.type == KEYBOARD) {
-      if (event.info.keyboard.character == 'q') break;
-    }
-
-    switch (state) {
-      case MENU:
-        //handle event with menu function
-        break;
-      case GAME:
-        //handle event with game function
-        break;
-      default:
-        return 1;
-    }
-
-    if (event.type == TIMER) {
-        vg_refresh(); //TODO make refresh dependant of timer
-    }
+  if (event.type == TIMER) {
+      vg_refresh(); //TODO make refresh dependant of timer
   }
+}
 
+int proj_cleanup(void) {
   int exit = unsubscribe_interrupts();
   if (vg_exit() || exit) return 1;
-
   return 0;
+}
+
+void proj_set_state(State new_state) {
+  state = new_state;
+  switch (new_state) {
+    case GAME:
+      game_create(&game);
+      proj_step_state = proj_step_game;
+      break;
+    case MENU:
+      proj_step_state = menu_step;
+      break;
+    default:
+      break;
+  }
+}
+
+void proj_step_game(Event event) {
+  game_step(&game, event);
 }

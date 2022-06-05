@@ -55,6 +55,7 @@ Event (keyboard_get_event)(void) {
   Event event;
   event.type = KEYBOARD;
   event.info.keyboard.size = size;
+  event.info.keyboard.buff = buff;
   event.info.keyboard.character = getLetter();
   return event;
 }
@@ -69,6 +70,9 @@ char getLetter(){
   }
   else if ((buff >= 0x2c) && (buff <= 0x32)){ //buff between 'z' and 'm'
     return third_row[buff - 0x2c];
+  }
+  else if (buff == 0x39) { //space bar
+    return ' ';
   }
 
   return '\0';

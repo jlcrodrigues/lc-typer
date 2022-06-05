@@ -1,3 +1,12 @@
+#ifndef MOUSE_H
+#define MOUSE_H
+
+/** @defgroup kbc mouse
+ * @{
+ *
+ * Functions related to the moue driver.
+ */
+
 #include <lcom/lcf.h>
 
 #include "i8042.h"
@@ -55,3 +64,7 @@ int (get_packets_count)();
  * @return Event struct with proper data set.
  */
 Event (mouse_get_event)(void);
+
+/**@}*/
+
+#endif

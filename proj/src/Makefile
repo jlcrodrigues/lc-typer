@@ -11,7 +11,7 @@ PROG=proj
 
 # source code files to be compiled
 DRIVERS = driver.c keyboard.c mouse.c timer.c utils.c video_gr.c sprite.c
-TYPER = proj.c mouse_sprite.c
+TYPER = proj.c game.c menu.c mouse_sprite.c
 SRCS = $(DRIVERS) $(TYPER)
 
 # additional compilation flags
@@ -19,7 +19,7 @@ SRCS = $(DRIVERS) $(TYPER)
 INCLUDE_FLAGS = -I./drivers -I./drivers/driver -I./drivers/kbc -I./drivers/timer -I./drivers/utils -I./drivers/video -I./typer
 ASSETS = -I./assets -I./assets/xpm
 CFLAGS += -pedantic
-CPPFLAGS += -pedantic $(INCLUDE_FLAGS) $(ASSETS) -D __LCOM_OPTIMIZED__ 
+CPPFLAGS += -pedantic $(INCLUDE_FLAGS) $(ASSETS) #-D __LCOM_OPTIMIZED__ 
 
 # list of library dependencies (only LCF library)
 DPADD += ${LIBLCF}

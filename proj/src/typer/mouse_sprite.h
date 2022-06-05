@@ -3,18 +3,18 @@
 
 #include <lcom/lcf.h>
 
+/** @defgroup mouse_sprite
+ * @{
+ * 
+ *  Mouse cursor related code.
+ */
+
 #include "driver.h"
 #include "video.h"
 #include "mouse_xpm.xpm"
 #include "sprite.h"
 
 #define MOUSE_START 300
-
-/** @defgroup mouse_sprite
- * @{
- * 
- *  Mouse cursor related code.
- */
 
 /**
  * @brief Visible cursor on the screen.

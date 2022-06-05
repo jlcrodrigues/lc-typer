@@ -58,13 +58,13 @@ int(unsubscribe_interrupts)() {
   return 0;
 }
 
-LoopState(interrupt_handler)() {
+int (interrupt_handler)() {
   message msg;
 
   /* Get a request message. */
   if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
     printf("driver_receive failed with: %d", r);
-    return CONTINUE;
+    return 0;
   }
   if (is_ipc_notify(ipc_status)) { /* received notification */
     switch (_ENDPOINT_P(msg.m_source)) {
@@ -73,20 +73,20 @@ LoopState(interrupt_handler)() {
           kbc_ih();
           if (keyboard_is_complete()) {
             event = keyboard_get_event();
-            return EVENT;
+            return 1;
           }
         }
         if (msg.m_notify.interrupts & irq_mouse) {
           mouse_ih();
           if (get_packets_count() == 3) {
             event = mouse_get_event();
-            return EVENT;
+            return 1;
           }
         }
         if (msg.m_notify.interrupts & irq_timer) { /* subscribed interrupt */
           timer_ih();
           event = timer_get_event();
-          return EVENT;
+          return 1;
         }
         break;
       default:
@@ -96,7 +96,7 @@ LoopState(interrupt_handler)() {
   else { /* received a standard message, not a notification */
          /* no standard messages expected: do nothing */
   }
-  return CONTINUE;
+  return 0;
 }
 
 Event get_event() {

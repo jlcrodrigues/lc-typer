@@ -1,6 +1,12 @@
 #ifndef DRIVER_H
 #define DRIVER_H
 
+/** @defgroup driver driver
+ * @{
+ *
+ * Groups all the functions related to the different drivers.
+ */
+
 #include <lcom/lcf.h>
 #include "keyboard.h"
 #include "mouse.h"
@@ -8,8 +14,6 @@
 #include "timer.h"
 #include "event.h"
 #include "sprite.h"
-
-typedef enum {CONTINUE, OVER, ERROR, EVENT} LoopState;
 
 /**
  * @brief Subscribe interrupts: keyboard, mouse, timer.
@@ -27,9 +31,9 @@ int (unsubscribe_interrupts)(void);
  * @brief Checks for interrupts. If any occurred, creates a 
  * Event struct with all the necessary information.
  * 
- * @return LoopState Current loop state after looking for interrupts.
+ * @return int Returns 1 if any interrupt occurred and 0 otherwise.
  */
-LoopState (interrupt_handler)(void);
+int (interrupt_handler)(void);
 
 /**
  * @brief Get the last event that occurred
@@ -37,5 +41,7 @@ LoopState (interrupt_handler)(void);
  * @return Event Event struct (supports all different interrupts)
  */
 Event get_event();
+
+/**@}*/
 
 #endif
