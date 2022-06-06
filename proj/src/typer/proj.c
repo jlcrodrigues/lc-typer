@@ -1,10 +1,12 @@
 #include "proj.h"
+#include "alphabet.h"
 
 static State state = MENU;
 static Game game;
 static mouse_sprite mouse;
 
 static void (*proj_step_state)(Event event);
+
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
