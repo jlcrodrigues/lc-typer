@@ -156,7 +156,7 @@ int (vg_refresh)() {
   char* tmp = video_mem;
   video_mem = buff;
   buff = tmp;
-  memset(buff, 0, vram_size);
+  memset(buff, 0x453F3C, vram_size);
   return 0;
 }
 

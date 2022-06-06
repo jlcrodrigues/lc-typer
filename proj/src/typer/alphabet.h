@@ -8,7 +8,7 @@
 #define FONT_HEIGHT 57
 #define FONT_WIDTH 30
 
-
+int drawLetter(char letter, int pos_x, int pos_y);
 
 
  static xpm_row_t const a[] = {
@@ -1702,7 +1702,5 @@ static xpm_row_t const z[] = {
         "..............................",
         ".............................."
 };
-
-int drawLetter(char letter, int pos_x, int pos_y);
 
 #endif

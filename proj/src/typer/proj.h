@@ -20,6 +20,7 @@ typedef enum {MENU, GAME, OVER} State;
 #include "driver.h"
 #include "game.h"
 #include "menu.h"
+#include "alphabet.h"
 #include "mouse_sprite.h"
 
 /**
