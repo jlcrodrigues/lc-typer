@@ -38,7 +38,11 @@ int (proj_main_loop)(int argc, char* argv[]) {
 
   while (state != OVER) {
     proj_step();
-    drawLetter('a', 10, 10);
+    drawLetter('h', 10, 10);
+    drawLetter('e', 70, 10);
+    drawLetter('l', 130, 10);
+    drawLetter('l', 190, 10);
+    drawLetter('o', 250, 10);
   }
 
   return proj_cleanup();

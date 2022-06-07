@@ -138,6 +138,7 @@ int(draw_sprite)(Sprite sprite, uint16_t x, uint16_t y) {
   for (uint8_t i = 0; i < sprite.img.height; i++) {
     for (uint8_t j = 0; j < sprite.img.width; j++) {
       if (x + j < h_res && y + i < v_res) {
+        if (sprite.pix_map[j + i * sprite.img.width] == 0) continue;
         if (draw_pixel(x + j, y + i, sprite.pix_map[j + i * sprite.img.width]))
           return 1;
       }
