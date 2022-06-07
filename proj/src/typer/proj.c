@@ -1,5 +1,6 @@
 #include "proj.h"
 #include "alphabet.h"
+#include "digits.h"
 
 static State state = MENU;
 static Game game;
@@ -43,6 +44,16 @@ int (proj_main_loop)(int argc, char* argv[]) {
     drawLetter('l', 130, 10);
     drawLetter('l', 190, 10);
     drawLetter('o', 250, 10);
+    drawDigit(1, 10, 400);
+    drawDigit(2, 70, 400);
+    drawDigit(3, 130, 400);
+    drawDigit(4, 190, 400);
+    drawDigit(5, 250, 400);
+    drawDigit(6, 310, 400);
+    drawDigit(7, 370, 400);
+    drawDigit(8, 430, 400);
+    drawDigit(9, 490, 400);
+    drawDigit(0, 550, 400);
   }
 
   return proj_cleanup();

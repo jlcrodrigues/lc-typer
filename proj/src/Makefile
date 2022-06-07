@@ -11,7 +11,7 @@ PROG=proj
 
 # source code files to be compiled
 DRIVERS = driver.c keyboard.c mouse.c timer.c utils.c video_gr.c sprite.c
-TYPER = proj.c game.c menu.c mouse_sprite.c alphabet.c
+TYPER = proj.c game.c menu.c mouse_sprite.c alphabet.c digits.c
 SRCS = $(DRIVERS) $(TYPER)
 
 # additional compilation flags
