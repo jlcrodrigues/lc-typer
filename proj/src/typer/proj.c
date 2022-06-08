@@ -1,5 +1,6 @@
 #include "proj.h"
 #include "alphabet.h"
+#include "digits.h"
 
 static State state = MENU;
 static Game game;

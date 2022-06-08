@@ -5,7 +5,7 @@ static uint32_t secondary_color = SECONDARY_COLOR;
 
 void game_create(Game* game) {
   game->player_position = 0;
-  game->text = "the quick brown fox jumps over the lazy dog abcdefghijklmnopqrstuvwxyz"; //TODO issue #3 generate sentences 
+  game->text = "0123456789the quick brown fox jumps over the lazy dog"; //TODO issue #3 generate sentences 
   game->text_size = strlen(game->text);
   game->time_elapsed = 0;
 }
@@ -44,10 +44,10 @@ void draw_text(Game* game) {
   int y_pos = 100;
   for (int i = 0; i < game->text_size; i++) {
     if (i < game->player_position) {
-      drawLetter(game->text[i], x_pos, y_pos, primary_color);
+      draw_char(game->text[i], x_pos, y_pos, primary_color);
     }
     else {
-      drawLetter(game->text[i], x_pos, y_pos, secondary_color);
+      draw_char(game->text[i], x_pos, y_pos, secondary_color);
     }
     x_pos += PADDING + FONT_WIDTH;
     if (x_pos > video_get_h_res()) {

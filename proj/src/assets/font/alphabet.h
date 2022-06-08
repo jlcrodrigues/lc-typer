@@ -1,21 +1,7 @@
 #ifndef ALPHABET_H
 #define ALPHABET_H
 
-#include "driver.h"
-#include <lcom/lcf.h>
-#include <string.h>
-
-#define FONT_HEIGHT 57
-#define FONT_WIDTH 30
-#define PADDING 5
-
-int drawLetter(char letter, int pos_x, int pos_y, uint32_t color);
-
-int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color);
-
-int getSentenceWidth(char *sentence);
-
- static xpm_row_t const a[] = {
+static xpm_row_t const a_xpm[] = {
         "30 57 2 1",
         "  c #000000",
         ". c #FF00FF",
@@ -79,7 +65,7 @@ int getSentenceWidth(char *sentence);
 };
 
 /* XPM */
-static xpm_row_t const b[] = {
+static xpm_row_t const b_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -145,7 +131,7 @@ static xpm_row_t const b[] = {
 };
 
 /* XPM */
-static xpm_row_t const c[] = {
+static xpm_row_t const c_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -211,7 +197,7 @@ static xpm_row_t const c[] = {
 };
 
 /* XPM */
-static xpm_row_t const d[] = {
+static xpm_row_t const d_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -277,7 +263,7 @@ static xpm_row_t const d[] = {
 };
 
 /* XPM */
-static xpm_row_t const e[] = {
+static xpm_row_t const e_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -342,7 +328,7 @@ static xpm_row_t const e[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const f[] = {
+static xpm_row_t const f_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -407,7 +393,7 @@ static xpm_row_t const f[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const g[] = {
+static xpm_row_t const g_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -472,7 +458,7 @@ static xpm_row_t const g[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const h[] = {
+static xpm_row_t const h_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -537,7 +523,7 @@ static xpm_row_t const h[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const i[] = {
+static xpm_row_t const i_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -602,7 +588,7 @@ static xpm_row_t const i[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const j[] = {
+static xpm_row_t const j_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -667,7 +653,7 @@ static xpm_row_t const j[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const k[] = {
+static xpm_row_t const k_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -732,7 +718,7 @@ static xpm_row_t const k[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const l[] = {
+static xpm_row_t const l_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -797,7 +783,7 @@ static xpm_row_t const l[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const m[] = {
+static xpm_row_t const m_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -862,12 +848,13 @@ static xpm_row_t const m[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const n[] = {
+static xpm_row_t const n_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
         ". c #FF00FF",
 /* pixels */
+        "..............................",
         "..............................",
         "..............................",
         "..............................",
@@ -924,11 +911,10 @@ static xpm_row_t const n[] = {
         "..............................",
         "..............................",
         "..............................",
-        "..............................",
         ".............................."
 };
 /* XPM */
-static xpm_row_t const o[] = {
+static xpm_row_t const o_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -993,7 +979,7 @@ static xpm_row_t const o[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const p[] = {
+static xpm_row_t const p_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1058,12 +1044,13 @@ static xpm_row_t const p[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const q[] = {
+static xpm_row_t const q_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
         ". c #FF00FF",
 /* pixels */
+        "..............................",
         "..............................",
         "..............................",
         "..............................",
@@ -1123,7 +1110,7 @@ static xpm_row_t const q[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const r[] = {
+static xpm_row_t const r_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1188,7 +1175,7 @@ static xpm_row_t const r[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const s[] = {
+static xpm_row_t const s_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1253,7 +1240,7 @@ static xpm_row_t const s[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const t[] = {
+static xpm_row_t const t_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1318,7 +1305,7 @@ static xpm_row_t const t[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const u[] = {
+static xpm_row_t const u_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1383,12 +1370,13 @@ static xpm_row_t const u[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const v[] = {
+static xpm_row_t const v_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
         ". c #FF00FF",
 /* pixels */
+        "..............................",
         "..............................",
         "..............................",
         "..............................",
@@ -1445,11 +1433,10 @@ static xpm_row_t const v[] = {
         "..............................",
         "..............................",
         "..............................",
-        "..............................",
         ".............................."
 };
 /* XPM */
-static xpm_row_t const w[] = {
+static xpm_row_t const w_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1514,7 +1501,7 @@ static xpm_row_t const w[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const x[] = {
+static xpm_row_t const x_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1579,7 +1566,7 @@ static xpm_row_t const x[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const y[] = {
+static xpm_row_t const y_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",
@@ -1644,7 +1631,7 @@ static xpm_row_t const y[] = {
         ".............................."
 };
 /* XPM */
-static xpm_row_t const z[] = {
+static xpm_row_t const z_xpm[] = {
 /* columns rows colors chars-per-pixel */
         "30 57 2 1",
         "  c #000000",

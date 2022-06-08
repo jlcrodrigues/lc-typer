@@ -39,7 +39,7 @@ void game_create(Game* game);
  * Drawing the game means drawing every necessary element for the 
  * game state.
  * 
- * @param game 
+ * @param game Pointer to the game struct.
  */
 void game_draw(Game* game);
 
