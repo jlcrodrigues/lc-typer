@@ -38,7 +38,6 @@ int (proj_main_loop)(int argc, char* argv[]) {
 
   while (state != OVER) {
     proj_step();
-    drawLetter('a', 10, 10);
   }
 
   return proj_cleanup();
@@ -59,10 +58,8 @@ void proj_step(void) {
   if (!interrupt_handler()) // no interrupts
     return;
   Event event = get_event();
-  mouse_sprite_step(&mouse, event);
-
   proj_step_state(event);
-
+  mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
       vg_refresh(); //TODO make refresh dependant of timer
   }

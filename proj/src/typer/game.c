@@ -2,19 +2,14 @@
 
 void game_create(Game* game) {
   game->player_position = 0;
-  game->text = "hello world"; //TODO issue #3 generate sentences 
-  game->text_size = 11;
+  game->text = "the quick brown fox jumps over the lazy dog"; //TODO issue #3 generate sentences 
+  game->text_size = strlen(game->text);
   game->time_elapsed = 0;
 }
 
 void game_draw(Game* game) {
   //TODO issue #8 draw sentences
-  for (int i = 0; i < game->text_size; i++) {
-    if (vg_draw_rectangle(10 * i, 100, 10, 10, 0xffffff)) return;
-    if (i < game->player_position) {
-      if (vg_draw_rectangle(10 * i, 110, 10, 10, 0xff)) return;
-    }
-  }
+  draw_text(game);
   //TODO display live wpm
 }
 
@@ -40,5 +35,22 @@ void game_handle_event(Game* game, Event event) {
 void game_step(Game* game, Event event) {
   game_handle_event(game, event);
   game_draw(game);
+}
+
+void draw_text(Game* game) {
+  int x_pos = PADDING;
+  int y_pos = 100;
+  for (int i = 0; i < game->text_size; i++) {
+    if (i < game->player_position) {
+    }
+    else {
+      drawLetter(game->text[i], x_pos, y_pos);
+    }
+    x_pos += PADDING + FONT_WIDTH;
+    if (x_pos > video_get_h_res()) {
+      x_pos = PADDING;
+      y_pos += FONT_HEIGHT + PADDING;
+    }
+  }
 }
 

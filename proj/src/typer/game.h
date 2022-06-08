@@ -60,6 +60,13 @@ void game_handle_event(Game* game, Event event);
  */
 void game_step(Game* game, Event event);
 
+/**
+ * @brief Draw the game main text.
+ * 
+ * @param game Game struct passed by reference.
+ */
+void draw_text(Game* game);
+
 /**@}*/
 
 #endif

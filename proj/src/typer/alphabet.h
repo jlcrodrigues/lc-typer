@@ -7,14 +7,18 @@
 
 #define FONT_HEIGHT 57
 #define FONT_WIDTH 30
+#define PADDING 5
 
 int drawLetter(char letter, int pos_x, int pos_y);
 
+int drawSentence(char *sentence, int pos_x, int pos_y);
+
+int getSentenceWidth(char *sentence);
 
  static xpm_row_t const a[] = {
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
         "..............................",
         "..............................",
         "..............................",
@@ -77,9 +81,9 @@ int drawLetter(char letter, int pos_x, int pos_y);
 /* XPM */
 static xpm_row_t const b[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -143,9 +147,9 @@ static xpm_row_t const b[] = {
 /* XPM */
 static xpm_row_t const c[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -209,9 +213,9 @@ static xpm_row_t const c[] = {
 /* XPM */
 static xpm_row_t const d[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -275,9 +279,9 @@ static xpm_row_t const d[] = {
 /* XPM */
 static xpm_row_t const e[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -340,9 +344,9 @@ static xpm_row_t const e[] = {
 /* XPM */
 static xpm_row_t const f[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -405,9 +409,9 @@ static xpm_row_t const f[] = {
 /* XPM */
 static xpm_row_t const g[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -470,9 +474,9 @@ static xpm_row_t const g[] = {
 /* XPM */
 static xpm_row_t const h[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -535,9 +539,9 @@ static xpm_row_t const h[] = {
 /* XPM */
 static xpm_row_t const i[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -600,9 +604,9 @@ static xpm_row_t const i[] = {
 /* XPM */
 static xpm_row_t const j[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -665,9 +669,9 @@ static xpm_row_t const j[] = {
 /* XPM */
 static xpm_row_t const k[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -730,9 +734,9 @@ static xpm_row_t const k[] = {
 /* XPM */
 static xpm_row_t const l[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -795,9 +799,9 @@ static xpm_row_t const l[] = {
 /* XPM */
 static xpm_row_t const m[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -860,9 +864,9 @@ static xpm_row_t const m[] = {
 /* XPM */
 static xpm_row_t const n[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -925,9 +929,9 @@ static xpm_row_t const n[] = {
 /* XPM */
 static xpm_row_t const o[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -990,9 +994,9 @@ static xpm_row_t const o[] = {
 /* XPM */
 static xpm_row_t const p[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1055,9 +1059,9 @@ static xpm_row_t const p[] = {
 /* XPM */
 static xpm_row_t const q[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1120,9 +1124,9 @@ static xpm_row_t const q[] = {
 /* XPM */
 static xpm_row_t const r[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1185,9 +1189,9 @@ static xpm_row_t const r[] = {
 /* XPM */
 static xpm_row_t const s[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1250,9 +1254,9 @@ static xpm_row_t const s[] = {
 /* XPM */
 static xpm_row_t const t[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1315,9 +1319,9 @@ static xpm_row_t const t[] = {
 /* XPM */
 static xpm_row_t const u[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1380,9 +1384,9 @@ static xpm_row_t const u[] = {
 /* XPM */
 static xpm_row_t const v[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1445,9 +1449,9 @@ static xpm_row_t const v[] = {
 /* XPM */
 static xpm_row_t const w[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1510,9 +1514,9 @@ static xpm_row_t const w[] = {
 /* XPM */
 static xpm_row_t const x[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1575,9 +1579,9 @@ static xpm_row_t const x[] = {
 /* XPM */
 static xpm_row_t const y[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",
@@ -1640,9 +1644,9 @@ static xpm_row_t const y[] = {
 /* XPM */
 static xpm_row_t const z[] = {
 /* columns rows colors chars-per-pixel */
-        "30 57 2",
-        " c 255",
-        ".c 0",
+        "30 57 2 1",
+        "  c #FF00FF",
+        ". c #000000",
 /* pixels */
         "..............................",
         "..............................",

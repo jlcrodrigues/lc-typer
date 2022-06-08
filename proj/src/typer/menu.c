@@ -1,8 +1,11 @@
 #include "menu.h"
 
+static char* title = "lc typer";
+
 void menu_draw() {
   //TODO add buttons
-  vg_draw_rectangle(200, 200, 100, 100, 0x123456);
+  int middle = video_get_h_res() / 2;
+  drawSentence(title, middle - getSentenceWidth(title) / 2, 200);
 }
 
 void menu_handle_event(Event event) {
