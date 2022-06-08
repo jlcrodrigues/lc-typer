@@ -61,7 +61,7 @@ int draw_char(char letter, int pos_x, int pos_y, uint32_t color);
  * @param color Color in RRGGBB mode(hex).
  * @return int 0 if the sentence is drawn, false otherwise.
  */
-int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color);
+int draw_sentence(char *sentence, int pos_x, int pos_y, uint32_t color);
 
 /**
  * @brief Get the width of a sentence on the screen.
@@ -69,7 +69,7 @@ int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color);
  * @param sentence Char* Sentence to be drawn.
  * @return int Size (pixels) of the sentence.
  */
-int getSentenceWidth(char *sentence);
+int get_sentence_width(char *sentence);
 
 /**@}*/
 

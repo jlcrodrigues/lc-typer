@@ -14,6 +14,8 @@
 #define PRIMARY_COLOR 0x912F56
 #define SECONDARY_COLOR 0xA4A5AE
 
+#define MARGIN 15
+
 /* Macros */
 
 #define RED(n) ((n >> 16) & 0xff)

@@ -25,7 +25,7 @@ int draw_char(char letter, int pos_x, int pos_y, uint32_t color) {
   return draw_letter(sprite, pos_x, pos_y, color);
 }
 
-int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color) {
+int draw_sentence(char *sentence, int pos_x, int pos_y, uint32_t color) {
   int i = 0;
   while (sentence[i] != '\0') {
     draw_char(sentence[i], pos_x, pos_y, color);
@@ -35,7 +35,7 @@ int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color) {
   return 0;
 }
 
-int getSentenceWidth(char *sentence) {
+int get_sentence_width(char *sentence) {
   int size = 0, i = 0;
   while (sentence[i] != '\0') {
     size += FONT_WIDTH + PADDING;

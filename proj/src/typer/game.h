@@ -10,6 +10,7 @@
 #include <lcom/lcf.h>
 #include "driver.h"
 #include "proj.h"
+#include "sprite.h"
 
 /**
  * @brief Represents a game. A game consists of a sentence, 
@@ -66,6 +67,13 @@ void game_step(Game* game, Event event);
  * @param game Game struct passed by reference.
  */
 void draw_text(Game* game);
+
+/**
+ * @brief Draw the player's live speed.
+ * 
+ * @param game Game struct passed by reference.
+ */
+void draw_wpm(Game* game);
 
 /**@}*/
 
