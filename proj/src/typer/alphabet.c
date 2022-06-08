@@ -2,18 +2,18 @@
 
 static xpm_row_t *letters_xpm[] = {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z};
 
-int drawLetter(char letter, int pos_x, int pos_y) {
+int drawLetter(char letter, int pos_x, int pos_y, uint32_t color) {
   if (letter < 'a' || letter > 'z')
     return 1;
   Sprite sprite = create_sprite(letters_xpm[(int) (letter - 'a')]);
-  return draw_sprite(sprite, pos_x, pos_y);
+  return draw_letter(sprite, pos_x, pos_y, color);
 }
 
-int drawSentence(char *sentence, int pos_x, int pos_y) {
+int drawSentence(char *sentence, int pos_x, int pos_y, uint32_t color) {
   int i = 0;
   while (sentence[i] != '\0') {
     if (sentence[i] > 'a' && sentence[i] < 'z') {
-        if (drawLetter(sentence[i], pos_x, pos_y))
+        if (drawLetter(sentence[i], pos_x, pos_y, color))
             return 1;
     }
     pos_x += FONT_WIDTH + PADDING;

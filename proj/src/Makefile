@@ -19,7 +19,7 @@ SRCS = $(DRIVERS) $(TYPER)
 INCLUDE_FLAGS = -I./drivers -I./drivers/driver -I./drivers/kbc -I./drivers/timer -I./drivers/utils -I./drivers/video -I./typer
 ASSETS = -I./assets -I./assets/xpm
 CFLAGS += -pedantic
-CPPFLAGS += -pedantic $(INCLUDE_FLAGS) $(ASSETS) #-D __LCOM_OPTIMIZED__ 
+CPPFLAGS += -pedantic $(INCLUDE_FLAGS) $(ASSETS) -D __LCOM_OPTIMIZED__ 
 
 # list of library dependencies (only LCF library)
 DPADD += ${LIBLCF}

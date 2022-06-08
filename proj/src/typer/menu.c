@@ -5,7 +5,7 @@ static char* title = "lc typer";
 void menu_draw() {
   //TODO add buttons
   int middle = video_get_h_res() / 2;
-  drawSentence(title, middle - getSentenceWidth(title) / 2, 200);
+  drawSentence(title, middle - getSentenceWidth(title) / 2, 200, PRIMARY_COLOR);
 }
 
 void menu_handle_event(Event event) {

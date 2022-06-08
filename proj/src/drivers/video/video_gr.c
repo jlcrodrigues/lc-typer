@@ -16,7 +16,7 @@ static unsigned v_res;          /* Vertical resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 static unsigned bytes_per_pixel; /* Number of VRAM bytes per pixel */
 static unsigned int vram_size; /* Size of a frame in memory */
-static const uint32_t bg_color = 0x254441;
+static const uint32_t bg_color = BG_COLOR;
 
 int(map_memory)(vbe_mode_info_t mode_info) {
   struct minix_mem_range mr;
@@ -142,7 +142,24 @@ int(draw_sprite)(Sprite sprite, uint16_t x, uint16_t y) {
       uint32_t color = sprite.pix_map[pos];
       color |= sprite.pix_map[pos + 1] << 8;
       color |= sprite.pix_map[pos + 2] << 16; 
-      if (color != 0)
+      if (color != 0xff00ff) //transparent
+        draw_pixel(x + j, y + i, color);
+    }
+  }
+  return 0;
+}
+
+int(draw_letter)(Sprite sprite, uint16_t x, uint16_t y, uint32_t color) {
+  if (sprite.pix_map == NULL)
+    return 1;
+
+  for (uint8_t i = 0; i < sprite.img.height; i++) {
+    for (uint8_t j = 0; j < sprite.img.width; j++) {
+      int pos = (j + i * sprite.img.width) * bytes_per_pixel;
+      uint32_t c = sprite.pix_map[pos];
+      c |= sprite.pix_map[pos + 1] << 8;
+      c |= sprite.pix_map[pos + 2] << 16; 
+      if (c != 0xff00ff) //transparent
         draw_pixel(x + j, y + i, color);
     }
   }
