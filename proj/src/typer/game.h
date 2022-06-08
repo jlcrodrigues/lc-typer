@@ -39,7 +39,7 @@ void game_create(Game* game);
  * Drawing the game means drawing every necessary element for the 
  * game state.
  * 
- * @param game 
+ * @param game Pointer to the game struct.
  */
 void game_draw(Game* game);
 
@@ -59,6 +59,13 @@ void game_handle_event(Game* game, Event event);
  * @param event Latest event that occurred.
  */
 void game_step(Game* game, Event event);
+
+/**
+ * @brief Draw the game main text.
+ * 
+ * @param game Game struct passed by reference.
+ */
+void draw_text(Game* game);
 
 /**@}*/
 

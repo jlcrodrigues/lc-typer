@@ -1,5 +1,6 @@
 #include "proj.h"
 #include "alphabet.h"
+#include "digits.h"
 
 static State state = MENU;
 static Game game;
@@ -18,7 +19,7 @@ int main(int argc, char *argv[]) {
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/proj/output.txt");
+  //lcf_log_output("/home/lcom/labs/proj/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -38,7 +39,6 @@ int (proj_main_loop)(int argc, char* argv[]) {
 
   while (state != OVER) {
     proj_step();
-    drawLetter('a', 10, 10);
   }
 
   return proj_cleanup();
@@ -59,10 +59,8 @@ void proj_step(void) {
   if (!interrupt_handler()) // no interrupts
     return;
   Event event = get_event();
-  mouse_sprite_step(&mouse, event);
-
   proj_step_state(event);
-
+  mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
       vg_refresh(); //TODO make refresh dependant of timer
   }
