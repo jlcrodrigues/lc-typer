@@ -16,6 +16,7 @@
 #define FONT_HEIGHT 57
 #define FONT_WIDTH 30
 #define PADDING 5
+#define LINE_HEIGHT (FONT_HEIGHT + PADDING)
 
 /**
  * @brief Structure that holds drawable images.
