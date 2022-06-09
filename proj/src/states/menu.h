@@ -11,8 +11,6 @@
 #include "driver.h"
 #include "proj.h"
 
-void menu_init();
-
 /**
  * @brief Draws the menu to the screen.
  * 
