@@ -22,6 +22,7 @@ void game_over_draw(Game* game) {
   draw_sentence("acc", 3 * h_res / 4 - width / 2, TEXT_Y_POS, PRIMARY_COLOR);
   char acc_str[4];
   sprintf(acc_str, "%d", acc);
+  strcat(acc_str, "%");
   width = get_sentence_width(acc_str);
   draw_sentence(acc_str, 3 * h_res / 4 - width / 2, TEXT_Y_POS + LINE_HEIGHT, PRIMARY_COLOR);
 }
