@@ -10,6 +10,7 @@
 #include <lcom/lcf.h>
 #include "keyboard.h"
 #include "mouse.h"
+#include "rtc.h"
 #include "video.h"
 #include "timer.h"
 #include "event.h"
