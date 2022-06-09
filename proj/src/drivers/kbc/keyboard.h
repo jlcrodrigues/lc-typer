@@ -54,6 +54,14 @@ Event (keyboard_get_event)(void);
  */
 char getLetter();
 
+/**
+ * @brief Check if a char is a letter and can be used in the game.
+ * 
+ * @param c Character to test.
+ * @return int 1 is the char is alpha, 0 otherwise.
+ */
+int test_letter(char c);
+
 /**@}*/
 
 #endif

@@ -35,6 +35,7 @@
 /* Relevant codes */
 
 #define BREAKCODE_ESC 0x81
+#define MAKECODE_BACKSPACE 0X0E
 #define FIRST_BYTE 0xE0
 
 /* Masks */
