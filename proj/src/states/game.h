@@ -21,6 +21,10 @@ typedef struct Game {
   int text_size;
   /** @brief Amount, in seconds, of time elapsed since the first letter hit. **/
   int time_elapsed;
+  /** @brief Amount of misses after the last hit. **/
+  int typo_offset;
+  /** @brief Overall amount of miss clicks. **/
+  int typo_count;
 } Game;
 
 #include <lcom/lcf.h>

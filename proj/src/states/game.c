@@ -2,6 +2,7 @@
 
 static uint32_t primary_color = PRIMARY_COLOR;
 static uint32_t secondary_color = SECONDARY_COLOR;
+static uint32_t accent_color = ACCENT_COLOR;
 
 static int base_y;
 static int next_y;
@@ -12,6 +13,8 @@ void game_create(Game* game) {
   game->text = "the quick brown fox jumps over the lazy dog"; //TODO issue #3 generate sentences 
   game->text_size = strlen(game->text);
   game->time_elapsed = 0;
+  game->typo_offset = 0;
+  game->typo_count = 0;
   base_y = TEXT_Y_START;
   last_line = 0;
 }
@@ -28,7 +31,8 @@ void game_draw(Game* game) {
 void game_handle_event(Game* game, Event event) {
   if (event.type == KEYBOARD) {
     if (event.info.keyboard.buff == 0x81) proj_set_state(MENU);
-    if (game->text[game->player_position] == event.info.keyboard.character) {
+    if (game->text[game->player_position] == event.info.keyboard.character
+        && !(game->typo_offset)) {
       if (game->player_position == 1) {
         game->time_elapsed = 0;
       }
@@ -37,10 +41,18 @@ void game_handle_event(Game* game, Event event) {
         proj_set_state(GAME_OVER);
       }
     }
+    else if (test_letter(event.info.keyboard.character)) {
+      game->typo_offset++;
+      game->typo_count++;
+    }
+    else if (event.info.keyboard.buff == MAKECODE_BACKSPACE) {
+      game->typo_offset--;
+      game->typo_offset = (game->typo_offset < 0) ? 0 : game->typo_offset;
+    }
   }
   if (event.type == TIMER) {
     if (!(event.info.timer.count_interrupts % timer_get_freq())) {
-      if (game->player_position) {
+      if (game->player_position || game->typo_count) {
         game->time_elapsed++;
       }
     }
@@ -62,6 +74,9 @@ void draw_text(Game* game) {
     if (y_pos >= TEXT_Y_START && y_pos < TEXT_Y_MAX) {
       if (i < game->player_position) {
         draw_char(game->text[i], x_pos, y_pos, primary_color);
+      }
+      else if (i < game->player_position + game->typo_offset) {
+        draw_char(game->text[i], x_pos, y_pos, accent_color);
       }
       else {
         draw_char(game->text[i], x_pos, y_pos, secondary_color);

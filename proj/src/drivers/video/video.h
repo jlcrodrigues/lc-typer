@@ -10,9 +10,10 @@
  *  Functions related to the video card. 
  */
 
-#define BG_COLOR 0x254441
-#define PRIMARY_COLOR 0x912F56
-#define SECONDARY_COLOR 0xA4A5AE
+#define BG_COLOR 0x512D38
+#define PRIMARY_COLOR 0x2CAE87
+#define SECONDARY_COLOR 0xFFE9F3
+#define ACCENT_COLOR 0xbb5062
 
 #define MARGIN 15
 
