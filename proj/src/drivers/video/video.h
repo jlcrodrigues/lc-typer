@@ -10,6 +10,13 @@
  *  Functions related to the video card. 
  */
 
+#define BG_COLOR 0x512D38
+#define PRIMARY_COLOR 0x2CAE87
+#define SECONDARY_COLOR 0xFFE9F3
+#define ACCENT_COLOR 0xbb5062
+
+#define MARGIN 15
+
 /* Macros */
 
 #define RED(n) ((n >> 16) & 0xff)
@@ -56,6 +63,16 @@ int (draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
  * @return int 0 upon success, non-zero otherwise
  */
 int (draw_sprite)(Sprite sprite, uint16_t x, uint16_t y);
+
+/**
+ * @brief Draws a xpm to the screen. Works similar to draw_sprite but color can be defined.
+ * @param Sprite Sprite struct with image and pix map.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param color The color of the letter.
+ * @return int 0 upon success, non-zero otherwise
+ */
+int(draw_letter)(Sprite sprite, uint16_t x, uint16_t y, uint32_t color);
 
 /**
  * @brief Fill the whole screen black.

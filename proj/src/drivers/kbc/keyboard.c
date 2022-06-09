@@ -77,3 +77,8 @@ char getLetter(){
 
   return '\0';
 }
+
+int test_letter(char c) {
+  return ((c >= 'a' && c <= 'z') || c == ' ');
+}
+

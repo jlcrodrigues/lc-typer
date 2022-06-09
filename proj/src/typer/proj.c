@@ -1,10 +1,13 @@
 #include "proj.h"
+#include "alphabet.h"
+#include "digits.h"
 
 static State state = MENU;
 static Game game;
 static mouse_sprite mouse;
 
 static void (*proj_step_state)(Event event);
+
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -16,7 +19,7 @@ int main(int argc, char *argv[]) {
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/proj/output.txt");
+  //lcf_log_output("/home/lcom/labs/proj/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -32,6 +35,7 @@ int main(int argc, char *argv[]) {
 
 int (proj_main_loop)(int argc, char* argv[]) {
   if (proj_setup()) return 1;
+
 
   while (state != OVER) {
     proj_step();
@@ -55,11 +59,10 @@ void proj_step(void) {
   if (!interrupt_handler()) // no interrupts
     return;
   Event event = get_event();
-  mouse_sprite_step(&mouse, event);
-
   proj_step_state(event);
-
+  mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
+    if (event.info.timer.count_interrupts % 2)
       vg_refresh(); //TODO make refresh dependant of timer
   }
 }
@@ -80,6 +83,9 @@ void proj_set_state(State new_state) {
     case MENU:
       proj_step_state = menu_step;
       break;
+    case GAME_OVER:
+      proj_step_state = proj_step_game_over;
+      break;
     default:
       break;
   }
@@ -87,4 +93,8 @@ void proj_set_state(State new_state) {
 
 void proj_step_game(Event event) {
   game_step(&game, event);
+}
+
+void proj_step_game_over(Event event) {
+  game_over_step(&game, event);
 }

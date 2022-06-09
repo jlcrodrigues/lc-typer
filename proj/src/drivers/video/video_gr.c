@@ -16,6 +16,7 @@ static unsigned v_res;          /* Vertical resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 static unsigned bytes_per_pixel; /* Number of VRAM bytes per pixel */
 static unsigned int vram_size; /* Size of a frame in memory */
+static const uint32_t bg_color = BG_COLOR;
 
 int(map_memory)(vbe_mode_info_t mode_info) {
   struct minix_mem_range mr;
@@ -82,7 +83,7 @@ void *(vg_init) (uint16_t mode) {
 }
 
 int(draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
-  if (x >= h_res || y >= v_res) {
+  if (x >= h_res || x < 0 || y >= v_res || y < 0) {
     return 1;
   }
   unsigned int pos = (x + y * h_res) * bytes_per_pixel;
@@ -137,10 +138,29 @@ int(draw_sprite)(Sprite sprite, uint16_t x, uint16_t y) {
 
   for (uint8_t i = 0; i < sprite.img.height; i++) {
     for (uint8_t j = 0; j < sprite.img.width; j++) {
-      if (x + j < h_res && y + i < v_res) {
-        if (draw_pixel(x + j, y + i, sprite.pix_map[j + i * sprite.img.width]))
-          return 1;
-      }
+      int pos = (j + i * sprite.img.width) * bytes_per_pixel;
+      uint32_t color = sprite.pix_map[pos];
+      color |= sprite.pix_map[pos + 1] << 8;
+      color |= sprite.pix_map[pos + 2] << 16; 
+      if (color != 0xff00ff) //transparent
+        draw_pixel(x + j, y + i, color);
+    }
+  }
+  return 0;
+}
+
+int(draw_letter)(Sprite sprite, uint16_t x, uint16_t y, uint32_t color) {
+  if (sprite.pix_map == NULL)
+    return 1;
+
+  for (uint8_t i = 0; i < sprite.img.height; i++) {
+    for (uint8_t j = 0; j < sprite.img.width; j++) {
+      int pos = (j + i * sprite.img.width) * bytes_per_pixel;
+      uint32_t c = sprite.pix_map[pos];
+      c |= sprite.pix_map[pos + 1] << 8;
+      c |= sprite.pix_map[pos + 2] << 16; 
+      if (c != 0xff00ff) //transparent
+        draw_pixel(x + j, y + i, color);
     }
   }
   return 0;
@@ -156,14 +176,17 @@ int (vg_refresh)() {
   char* tmp = video_mem;
   video_mem = buff;
   buff = tmp;
-  memset(buff, 0, vram_size);
+  for (unsigned int i = 0; i < vram_size / bytes_per_pixel; i++) {
+    memcpy(buff + bytes_per_pixel * i, &bg_color, bytes_per_pixel);
+  }
+  //memset(buff, 0, vram_size);
   return 0;
 }
 
 int vbe_set_display_start(uint16_t start) {
   reg86_t r86;
   /* Specify the appropriate register values */
-  memset(&r86, 0, sizeof(r86)); /* zero the structure */
+  memset(&r86, 0, sizeof(r86)); /* zero the structure7 */
 
   r86.intno = 0x10; /* BIOS video services */
   r86.ah = 0x4F;    /* VBE call */

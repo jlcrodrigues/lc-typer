@@ -7,10 +7,6 @@
  * Functions related to the game state.
  */
 
-#include <lcom/lcf.h>
-#include "driver.h"
-#include "proj.h"
-
 /**
  * @brief Represents a game. A game consists of a sentence, 
  * a position in the sentence and a value for the time elapsed.
@@ -25,7 +21,24 @@ typedef struct Game {
   int text_size;
   /** @brief Amount, in seconds, of time elapsed since the first letter hit. **/
   int time_elapsed;
+  /** @brief Amount of misses after the last hit. **/
+  int typo_offset;
+  /** @brief Overall amount of miss clicks. **/
+  int typo_count;
 } Game;
+
+#include <lcom/lcf.h>
+#include "driver.h"
+#include "proj.h"
+#include "sprite.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LINESIZE 2000
+#define NUMBER_OF_STRINGS 4
+#define NUM_LINES 3
+#define TEXT_Y_START 100
+#define TEXT_Y_MAX (TEXT_Y_START + NUM_LINES * LINE_HEIGHT)
 
 /**
  * @brief Initialize a game struct.
@@ -39,7 +52,7 @@ void game_create(Game* game);
  * Drawing the game means drawing every necessary element for the 
  * game state.
  * 
- * @param game 
+ * @param game Pointer to the game struct.
  */
 void game_draw(Game* game);
 
@@ -59,6 +72,29 @@ void game_handle_event(Game* game, Event event);
  * @param event Latest event that occurred.
  */
 void game_step(Game* game, Event event);
+
+/**
+ * @brief Draw the game main text.
+ * 
+ * @param game Game struct passed by reference.
+ */
+void draw_text(Game* game);
+
+/**
+ * @brief Draw the player's live speed.
+ * 
+ * @param game Game struct passed by reference.
+ */
+void draw_wpm(Game* game);
+
+/**
+ * @brief Creates the file from determined path and selects a random phrase from there.
+ *
+ * @param infile file path passed by reference.
+ *
+ * @return phrase selected.
+ */
+char* phrase_select(char* infile);
 
 /**@}*/
 

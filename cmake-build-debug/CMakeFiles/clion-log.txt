@@ -1,0 +1,1 @@
+CMakeLists.txt not found in C:\Users\Utilizador\Desktop\UNI 21-22\MINIX-LCOM\MINIX-LCOM\shared\g02 Select CMakeLists.txt
