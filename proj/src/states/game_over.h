@@ -12,6 +12,8 @@
  * The game over state operates over a game struct (last played).
  */
 
+#define TEXT_Y_POS 150
+
 /**
  * @brief Draw the game over state
  * 
