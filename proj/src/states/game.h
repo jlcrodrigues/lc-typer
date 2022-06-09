@@ -7,15 +7,6 @@
  * Functions related to the game state.
  */
 
-#include <lcom/lcf.h>
-#include "driver.h"
-#include "proj.h"
-#include "sprite.h"
-
-#define NUM_LINES 3
-#define TEXT_Y_START 100
-#define TEXT_Y_MAX (TEXT_Y_START + NUM_LINES * LINE_HEIGHT)
-
 /**
  * @brief Represents a game. A game consists of a sentence, 
  * a position in the sentence and a value for the time elapsed.
@@ -31,6 +22,15 @@ typedef struct Game {
   /** @brief Amount, in seconds, of time elapsed since the first letter hit. **/
   int time_elapsed;
 } Game;
+
+#include <lcom/lcf.h>
+#include "driver.h"
+#include "proj.h"
+#include "sprite.h"
+
+#define NUM_LINES 3
+#define TEXT_Y_START 100
+#define TEXT_Y_MAX (TEXT_Y_START + NUM_LINES * LINE_HEIGHT)
 
 /**
  * @brief Initialize a game struct.

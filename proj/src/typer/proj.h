@@ -14,12 +14,13 @@
  * Changing the state can by done by proj_set_state.
  * 
  */
-typedef enum {MENU, GAME, OVER} State;
+typedef enum {MENU, GAME, GAME_OVER, OVER} State;
 
 #include <lcom/lcf.h>
 #include "driver.h"
 #include "game.h"
 #include "menu.h"
+#include "game_over.h"
 #include "alphabet.h"
 #include "mouse_sprite.h"
 
@@ -51,11 +52,21 @@ int proj_cleanup(void);
  * @brief Step function when the state is GAME.
  * This function is needed to use on the step function pointer.
  * This is because the game step function has a different prototype
- * than require. Thus, this function acts as a proxy to the first.
+ * than required. Thus, this function acts as a proxy to the first.
  * 
  * @param event Latest event that occurred.
  */
 void proj_step_game(Event event);
+
+/**
+ * @brief Step function when the state is GAME_OVER.
+ * This function is needed to use on the step function pointer.
+ * This is because the game_over step function has a different prototype
+ * than required. Thus, this function acts as a proxy to the first.
+ * 
+ * @param event Latest event that occurred.
+ */
+void proj_step_game_over(Event event);
 
 /**
  * @brief Changes the current state of the programing.

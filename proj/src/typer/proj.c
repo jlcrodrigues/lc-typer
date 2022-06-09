@@ -83,6 +83,9 @@ void proj_set_state(State new_state) {
     case MENU:
       proj_step_state = menu_step;
       break;
+    case GAME_OVER:
+      proj_step_state = proj_step_game_over;
+      break;
     default:
       break;
   }
@@ -90,4 +93,8 @@ void proj_set_state(State new_state) {
 
 void proj_step_game(Event event) {
   game_step(&game, event);
+}
+
+void proj_step_game_over(Event event) {
+  game_over_step(&game, event);
 }

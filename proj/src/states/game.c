@@ -34,7 +34,7 @@ void game_handle_event(Game* game, Event event) {
       }
       game->player_position++;
       if (game->player_position == game->text_size) {
-        proj_set_state(GAME);
+        proj_set_state(GAME_OVER);
       }
     }
   }
