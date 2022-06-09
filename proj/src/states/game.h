@@ -31,7 +31,11 @@ typedef struct Game {
 #include "driver.h"
 #include "proj.h"
 #include "sprite.h"
+#include <stdio.h>
+#include <stdlib.h>
 
+#define LINESIZE 2000
+#define NUMBER_OF_STRINGS 4
 #define NUM_LINES 3
 #define TEXT_Y_START 100
 #define TEXT_Y_MAX (TEXT_Y_START + NUM_LINES * LINE_HEIGHT)
@@ -82,6 +86,15 @@ void draw_text(Game* game);
  * @param game Game struct passed by reference.
  */
 void draw_wpm(Game* game);
+
+/**
+ * @brief Creates the file from determined path and selects a random phrase from there.
+ *
+ * @param infile file path passed by reference.
+ *
+ * @return phrase selected.
+ */
+char* phrase_select(char* infile);
 
 /**@}*/
 

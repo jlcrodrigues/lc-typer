@@ -5,7 +5,7 @@ static xpm_row_t *letters_xpm[] = {
   j_xpm, k_xpm, l_xpm, m_xpm, n_xpm, o_xpm, p_xpm, q_xpm, r_xpm,
   s_xpm, t_xpm, u_xpm, v_xpm, w_xpm, x_xpm, y_xpm, z_xpm};
 
-static xpm_row_t *digits_xpm[] = {zero, one, two, three, four, five, six, seven, eight, nine};
+static xpm_row_t *digits_xpm[] = {zero, one, two, three, four, five, six, seven, eight, nine, percentage};
 
 Sprite (create_sprite)(xpm_map_t xpm) {
   Sprite sprite;
@@ -20,6 +20,8 @@ int draw_char(char letter, int pos_x, int pos_y, uint32_t color) {
     sprite = create_sprite(digits_xpm[(int) (letter - '0')]);
   else if (letter <= 'z' && letter >= 'a')
     sprite = create_sprite(letters_xpm[(int) (letter - 'a')]);
+  else if (letter == '%')  
+    sprite = create_sprite(digits_xpm[10]);
   else 
     return 1;
   return draw_letter(sprite, pos_x, pos_y, color);

@@ -8,10 +8,13 @@ static int base_y;
 static int next_y;
 static int last_line;
 
+static char phrases[LINESIZE];
+
 void game_create(Game* game) {
+  char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/lower_phrases.txt");
   game->player_position = 0;
-  game->text = "the quick brown fox jumps over the lazy dog"; //TODO issue #3 generate sentences 
-  game->text_size = strlen(game->text);
+  game->text = phrase;
+  game->text_size = strlen(phrase)-2;
   game->time_elapsed = 0;
   game->typo_offset = 0;
   game->typo_count = 0;
@@ -100,3 +103,25 @@ void draw_wpm(Game* game) {
   draw_sentence(wpm_str, MARGIN, MARGIN, PRIMARY_COLOR);
 }
 
+char* phrase_select(char* infile){
+    FILE *file;
+    if((file = fopen(infile,"r"))== NULL){
+        perror("cannot open file");
+        return NULL;
+    }
+    int n = rand() % NUMBER_OF_STRINGS;
+    size_t str_size = 0;
+    char* str = NULL;
+    int i = 0;
+    while(getline(&str, &str_size, file)> 0){
+        if(i==n){
+            for (size_t j=0;j<str_size;j++){
+                phrases[j] = str[j];
+            }
+            break;
+        }
+        i++;
+    }
+    fclose(file);
+    return phrases;
+}
