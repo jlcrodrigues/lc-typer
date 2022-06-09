@@ -1,8 +1,14 @@
 #include "menu.h"
 
+static Button start;
+
+void menu_init(){
+  create_button(&start);
+}
+
 void menu_draw() {
   //TODO add buttons
-  vg_draw_rectangle(200, 200, 100, 100, 0x123456);
+  draw_button(&button);
 }
 
 void menu_handle_event(Event event) {
