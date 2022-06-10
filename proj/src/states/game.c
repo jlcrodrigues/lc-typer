@@ -24,7 +24,7 @@ void game_create(Game* game) {
 
 void game_draw(Game* game) {
   draw_text(game);
-  if (game->time_elapsed)
+  if (game->player_position >= 1)
     draw_wpm(game);
 }
 
