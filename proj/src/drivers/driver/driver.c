@@ -4,8 +4,7 @@ static int ipc_status = 0, r;
 static int irq_keyboard;
 static int irq_timer;
 static int irq_mouse;
-
-extern int read_ok;
+static int irq_rtc;
 
 /** @brief Last event generated. */
 static Event event;
@@ -35,20 +34,34 @@ int(subscribe_interrupts)() {
   }
   irq_mouse = BIT(bit_no);
 
+  if (rtc_subscribe_int(&bit_no)) {
+    printf("Unable to subscribe to rtc interrupts.\n");
+    return 1;
+  }
+  irq_rtc = BIT(bit_no);
+  if (rtc_init()) {
+    printf("Unable to initialize RTC.\n");
+    return 1;
+  }
+
   return 0;
 }
 
 int(unsubscribe_interrupts)() {
   if (keyboard_unsubscribe_int()) {
-    printf("Unable to subscribe keyboard interrupts.\n");
+    printf("Unable to unsubscribe keyboard interrupts.\n");
     return 1;
   }
   if (timer_unsubscribe_int()) {
-    printf("Unable to subscribe timer interrupts.\n");
+    printf("Unable to unsubscribe timer interrupts.\n");
+    return 1;
+  }
+  if (rtc_unsubscribe_int()) {
+    printf("Unable to unsubscribe rtc interrupts.\n");
     return 1;
   }
   if (mouse_unsubscribe_int()) {
-    printf("Unable to subscribe mouse interrupts.\n");
+    printf("Unable to unsubscribe mouse interrupts.\n");
     return 1;
   }
   if (mouse_set_data_reporting(0)) {
@@ -69,6 +82,9 @@ int (interrupt_handler)() {
   if (is_ipc_notify(ipc_status)) { /* received notification */
     switch (_ENDPOINT_P(msg.m_source)) {
       case HARDWARE:                                  /* hardware interrupt notification */
+        if (msg.m_notify.interrupts & irq_rtc) {
+          rtc_ih();
+        }
         if (msg.m_notify.interrupts & irq_keyboard) { /* subscribed interrupt */
           kbc_ih();
           if (keyboard_is_complete()) {

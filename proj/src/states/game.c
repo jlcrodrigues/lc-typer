@@ -24,11 +24,8 @@ void game_create(Game* game) {
 
 void game_draw(Game* game) {
   draw_text(game);
-  if (game->time_elapsed)
+  if (game->player_position >= 1)
     draw_wpm(game);
-  /*char str[4]; //Debugging: see seconds count
-  sprintf(str, "%d", game->time_elapsed);
-  draw_sentence(str, 200, 400, 0xffffff);*/
 }
 
 void game_handle_event(Game* game, Event event) {
@@ -36,11 +33,12 @@ void game_handle_event(Game* game, Event event) {
     if (event.info.keyboard.buff == 0x81) proj_set_state(MENU);
     if (game->text[game->player_position] == event.info.keyboard.character
         && !(game->typo_offset)) {
-      if (game->player_position == 1) {
-        game->time_elapsed = 0;
+      if (game->player_position == 0) {
+        rtc_start_counter();
       }
       game->player_position++;
       if (game->player_position == game->text_size) {
+        game->time_elapsed = rtc_get_time_elapsed();
         proj_set_state(GAME_OVER);
       }
     }
@@ -51,13 +49,6 @@ void game_handle_event(Game* game, Event event) {
     else if (event.info.keyboard.buff == MAKECODE_BACKSPACE) {
       game->typo_offset--;
       game->typo_offset = (game->typo_offset < 0) ? 0 : game->typo_offset;
-    }
-  }
-  if (event.type == TIMER) {
-    if (!(event.info.timer.count_interrupts % timer_get_freq())) {
-      if (game->player_position || game->typo_count) {
-        game->time_elapsed++;
-      }
     }
   }
 }
@@ -101,10 +92,10 @@ void draw_text(Game* game) {
 }
 
 void draw_wpm(Game* game) {
-  if (game->time_elapsed == 0) return;
+  if (rtc_get_time_elapsed() == 0) return;
   int wpm = (int)(
     ((double)(game->player_position) / 5)
-     / ((double)(game->time_elapsed) / 60) //TODO fix time count
+     / ((double)(rtc_get_time_elapsed()) / 60) //TODO fix time count
     );
   char wpm_str[4];
   sprintf(wpm_str, "%d", wpm);
