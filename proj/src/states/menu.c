@@ -15,17 +15,15 @@ void menu_draw() {
 }
 
 void menu_handle_event(Event event) {
-  if (event.type == KEYBOARD) {
-    if (event.info.keyboard.character == ' ') 
-      proj_set_state(GAME);
-    else if (event.info.keyboard.buff == 0x81) 
-      proj_set_state(OVER);
-  }
+  if (start_button.clicked)
+    proj_set_state(GAME);
+  if (exit_button.clicked)
+    proj_set_state(OVER);
 }
 
 void menu_step(Event event) {
-  button_step(&start_button);
-  button_step(&exit_button);
+  button_step(&start_button, &event);
+  button_step(&exit_button, &event);
   menu_handle_event(event);
   menu_draw();
 }

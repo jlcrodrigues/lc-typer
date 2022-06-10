@@ -40,6 +40,8 @@ typedef struct Sprite
  */
 Sprite (create_sprite)(xpm_map_t xpm);
 
+void (load_font)(void);
+
 /**
  * @brief Draw a character to the screen.
  * The char is only drawn if its image is available.

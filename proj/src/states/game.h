@@ -62,7 +62,7 @@ void game_draw(Game* game);
  * @param game Game struct passed by reference.
  * @param event Latest event that occurred.
  */
-void game_handle_event(Game* game, Event event);
+void game_handle_event(Game* game, Event* event);
 
 /**
  * @brief Draw the game and handle the latest event.
@@ -71,7 +71,7 @@ void game_handle_event(Game* game, Event event);
  * @param game Game struct passed by reference.
  * @param event Latest event that occurred.
  */
-void game_step(Game* game, Event event);
+void game_step(Game* game, Event* event);
 
 /**
  * @brief Draw the game main text.

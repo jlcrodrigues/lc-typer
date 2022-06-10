@@ -78,7 +78,7 @@ void proj_step_game_over(Event event);
  */
 void proj_set_state(State new_state);
 
-mouse_sprite proj_get_mouse();
+mouse_sprite* proj_get_mouse();
 
 /**@}*/
 

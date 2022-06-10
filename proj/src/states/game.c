@@ -8,6 +8,8 @@ static int base_y;
 static int next_y;
 static int last_line;
 
+static Button exit_button;
+
 static char phrases[LINESIZE];
 
 void game_create(Game* game) {
@@ -20,6 +22,7 @@ void game_create(Game* game) {
   game->typo_count = 0;
   base_y = TEXT_Y_START;
   last_line = 0;
+  exit_button = button_create(video_get_h_res() - 30, PADDING, "x");
 }
 
 void game_draw(Game* game) {
@@ -28,10 +31,11 @@ void game_draw(Game* game) {
     draw_wpm(game);
 }
 
-void game_handle_event(Game* game, Event event) {
-  if (event.type == KEYBOARD) {
-    if (event.info.keyboard.buff == 0x81) proj_set_state(MENU);
-    if (game->text[game->player_position] == event.info.keyboard.character
+void game_handle_event(Game* game, Event* event) {
+  if (exit_button.clicked) 
+    proj_set_state(MENU);
+  if (event->type == KEYBOARD) {
+    if (game->text[game->player_position] == event->info.keyboard.character
         && !(game->typo_offset)) {
       if (game->player_position == 0) {
         rtc_start_counter();
@@ -42,18 +46,23 @@ void game_handle_event(Game* game, Event event) {
         proj_set_state(GAME_OVER);
       }
     }
-    else if (test_letter(event.info.keyboard.character)) {
+    else if (test_letter(event->info.keyboard.character)) {
       game->typo_offset++;
       game->typo_count++;
     }
-    else if (event.info.keyboard.buff == MAKECODE_BACKSPACE) {
+    else if (event->info.keyboard.buff == MAKECODE_BACKSPACE) {
       game->typo_offset--;
       game->typo_offset = (game->typo_offset < 0) ? 0 : game->typo_offset;
     }
+    if (event->info.keyboard.buff == BREAKCODE_ENTER)
+      proj_set_state(GAME);
+    if (event->info.keyboard.buff == BREAKCODE_ESC)
+      proj_set_state(MENU);
   }
 }
 
-void game_step(Game* game, Event event) {
+void game_step(Game* game, Event* event) {
+  button_step(&exit_button, event);
   game_handle_event(game, event);
   game_draw(game);
 }
@@ -83,7 +92,7 @@ void draw_text(Game* game) {
       if (x_pos + MARGIN + get_sentence_width(next) > video_get_h_res()) {
         x_pos = MARGIN;
         y_pos += LINE_HEIGHT;
-        if (y_pos == TEXT_Y_START + 2 * (LINE_HEIGHT))
+        if (y_pos == TEXT_Y_START + (LINE_HEIGHT << 1))
           next_y = i;
       }
     }

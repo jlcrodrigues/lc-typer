@@ -21,6 +21,6 @@ void button_draw(Button* button);
 
 void button_handle_event(Button* button);
 
-void button_step(Button* button);
+void button_step(Button* button, Event* event);
 
 #endif

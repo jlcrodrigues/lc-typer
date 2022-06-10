@@ -26,7 +26,7 @@ INCLUDE_FLAGS = $(INCLUDE_TYPER) $(INCLUDE_DRIVERS) $(INCLUDE_ASSETS)
 
 
 CFLAGS += -pedantic
-CPPFLAGS += -pedantic $(INCLUDE_FLAGS) #-D __LCOM_OPTIMIZED__ 
+CPPFLAGS += -pedantic $(INCLUDE_FLAGS) -D __LCOM_OPTIMIZED__ 
 
 # list of library dependencies (only LCF library)
 DPADD += ${LIBLCF}

@@ -1,11 +1,16 @@
 #include "sprite.h"
 
+static int initialized = 0;
+
 static xpm_row_t *letters_xpm[] = {
   a_xpm, b_xpm, c_xpm, d_xpm, e_xpm, f_xpm, g_xpm, h_xpm, i_xpm,
   j_xpm, k_xpm, l_xpm, m_xpm, n_xpm, o_xpm, p_xpm, q_xpm, r_xpm,
   s_xpm, t_xpm, u_xpm, v_xpm, w_xpm, x_xpm, y_xpm, z_xpm};
 
 static xpm_row_t *digits_xpm[] = {zero, one, two, three, four, five, six, seven, eight, nine, percentage};
+
+static Sprite sprite_font[26];
+static Sprite sprite_digits[11];
 
 Sprite (create_sprite)(xpm_map_t xpm) {
   Sprite sprite;
@@ -14,17 +19,31 @@ Sprite (create_sprite)(xpm_map_t xpm) {
   return sprite;
 }
 
+void load_font(void) {
+  for (int i = 0; i < 26; i++) 
+    sprite_font[i] = create_sprite(letters_xpm[i]);
+  for (int i = 0; i < 11; i++) 
+    sprite_digits[i] = create_sprite(digits_xpm[i]);
+  initialized = 1;
+}
+
 int draw_char(char letter, int pos_x, int pos_y, uint32_t color) {
+  if (!initialized) load_font();
   Sprite sprite;
-  if (letter <= '9' && letter >= '0')
-    sprite = create_sprite(digits_xpm[(int) (letter - '0')]);
-  else if (letter <= 'z' && letter >= 'a')
-    sprite = create_sprite(letters_xpm[(int) (letter - 'a')]);
-  else if (letter == '%')  
+  if (letter <= '9' && letter >= '0') {
+    draw_letter(sprite_digits[(int) (letter - '0')], pos_x, pos_y, color);
+    return 0;
+  }
+  else if (letter <= 'z' && letter >= 'a') {
+    draw_letter(sprite_font[(int) (letter - 'a')], pos_x, pos_y, color);
+    return 0;
+  }
+  else if (letter == '%') {
     sprite = create_sprite(digits_xpm[10]);
-  else 
-    return 1;
-  return draw_letter(sprite, pos_x, pos_y, color);
+    draw_letter(sprite_digits[10], pos_x, pos_y, color);
+    return 0;
+  }
+  return 1;
 }
 
 int draw_sentence(char *sentence, int pos_x, int pos_y, uint32_t color) {

@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
+  //lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/proj/output.txt");
+  //lcf_log_output("/home/lcom/labs/proj/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -63,7 +63,7 @@ void proj_step(void) {
   proj_step_state(event);
   mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
-    if (event.info.timer.count_interrupts % 2)
+    if (event.info.timer.count_interrupts % 4)
       vg_refresh(); //TODO make refresh dependant of timer
   }
 }
@@ -93,13 +93,13 @@ void proj_set_state(State new_state) {
 }
 
 void proj_step_game(Event event) {
-  game_step(&game, event);
+  game_step(&game, &event);
 }
 
 void proj_step_game_over(Event event) {
   game_over_step(&game, event);
 }
 
-mouse_sprite proj_get_mouse() {
-  return mouse;
+mouse_sprite* proj_get_mouse() {
+  return &mouse;
 }
