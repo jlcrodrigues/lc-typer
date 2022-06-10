@@ -23,6 +23,7 @@ typedef enum {MENU, GAME, GAME_OVER, OVER} State;
 #include "game_over.h"
 #include "alphabet.h"
 #include "mouse_sprite.h"
+#include "button.h"
 
 /**
  * @brief Initializes everything needed for the program.
@@ -76,6 +77,8 @@ void proj_step_game_over(Event event);
  * @param new_state New program state.
  */
 void proj_set_state(State new_state);
+
+mouse_sprite proj_get_mouse();
 
 /**@}*/
 

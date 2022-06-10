@@ -11,6 +11,11 @@
 #include "driver.h"
 #include "proj.h"
 
+#define TITLE_POS_Y 200
+#define BUTTON_POS_Y 350
+
+void menu_init();
+
 /**
  * @brief Draws the menu to the screen.
  * 
