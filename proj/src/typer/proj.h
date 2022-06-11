@@ -78,6 +78,12 @@ void proj_step_game_over(Event event);
  */
 void proj_set_state(State new_state);
 
+/**
+ * @brief Get a pointer to the project's mouse sprite.
+ * This can be useful to check for mouse collision e.g.
+ * 
+ * @return mouse_sprite* Mouse sprite struct.
+ */
 mouse_sprite* proj_get_mouse();
 
 /**@}*/

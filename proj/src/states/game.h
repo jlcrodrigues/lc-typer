@@ -48,6 +48,13 @@ typedef struct Game {
 void game_create(Game* game);
 
 /**
+ * @brief Restart a game (keep the text).
+ * 
+ * @param game Already created game struct passed by reference.
+ */
+void game_restart(Game* game);
+
+/**
  * @brief Draw a game on the screen.
  * Drawing the game means drawing every necessary element for the 
  * game state.

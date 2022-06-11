@@ -15,10 +15,14 @@ void menu_draw() {
 }
 
 void menu_handle_event(Event event) {
-  if (start_button.clicked)
+  if (start_button.clicked) {
+    start_button.clicked = 0;
     proj_set_state(GAME);
-  if (exit_button.clicked)
+  }
+  if (exit_button.clicked) {
+    exit_button.clicked = 0;
     proj_set_state(OVER);
+  }
 }
 
 void menu_step(Event event) {

@@ -14,6 +14,12 @@
 #define TITLE_POS_Y 200
 #define BUTTON_POS_Y 350
 
+/**
+ * @brief Starts up the menu state.
+ * There's no need to manually call this function, 
+ * as it is used after the first call to menu_step.
+ * 
+ */
 void menu_init();
 
 /**
