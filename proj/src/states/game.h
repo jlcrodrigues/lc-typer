@@ -48,6 +48,13 @@ typedef struct Game {
 void game_create(Game* game);
 
 /**
+ * @brief Restart a game (keep the text).
+ * 
+ * @param game Already created game struct passed by reference.
+ */
+void game_restart(Game* game);
+
+/**
  * @brief Draw a game on the screen.
  * Drawing the game means drawing every necessary element for the 
  * game state.
@@ -62,7 +69,7 @@ void game_draw(Game* game);
  * @param game Game struct passed by reference.
  * @param event Latest event that occurred.
  */
-void game_handle_event(Game* game, Event event);
+void game_handle_event(Game* game, Event* event);
 
 /**
  * @brief Draw the game and handle the latest event.
@@ -71,7 +78,7 @@ void game_handle_event(Game* game, Event event);
  * @param game Game struct passed by reference.
  * @param event Latest event that occurred.
  */
-void game_step(Game* game, Event event);
+void game_step(Game* game, Event* event);
 
 /**
  * @brief Draw the game main text.

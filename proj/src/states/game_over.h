@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "driver.h"
+#include "button.h"
 #include "proj.h"
 
 /** @defgroup state game_over
@@ -13,6 +14,8 @@
  */
 
 #define TEXT_Y_POS 150
+
+void game_over_init(void);
 
 /**
  * @brief Draw the game over state

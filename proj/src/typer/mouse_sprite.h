@@ -3,7 +3,7 @@
 
 #include <lcom/lcf.h>
 
-/** @defgroup mouse_sprite
+/** @defgroup ui mouse_sprite
  * @{
  * 
  *  Mouse cursor related code.

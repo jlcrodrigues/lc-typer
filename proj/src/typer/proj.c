@@ -50,6 +50,7 @@ int proj_setup(void) {
   if (subscribe_interrupts()) return 1;
 
   mouse_sprite_create(&mouse);
+  menu_init();
 
   proj_set_state(state);
   return 0;
@@ -62,7 +63,7 @@ void proj_step(void) {
   proj_step_state(event);
   mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
-    if (event.info.timer.count_interrupts % 2)
+    if (event.info.timer.count_interrupts % 4)
       vg_refresh(); //TODO make refresh dependant of timer
   }
 }
@@ -92,9 +93,13 @@ void proj_set_state(State new_state) {
 }
 
 void proj_step_game(Event event) {
-  game_step(&game, event);
+  game_step(&game, &event);
 }
 
 void proj_step_game_over(Event event) {
   game_over_step(&game, event);
+}
+
+mouse_sprite* proj_get_mouse() {
+  return &mouse;
 }

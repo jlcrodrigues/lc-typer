@@ -41,6 +41,13 @@ typedef struct Sprite
 Sprite (create_sprite)(xpm_map_t xpm);
 
 /**
+ * @brief Loads the font xpm and stores it in a local variable.
+ * This is executed once per run.
+ * 
+ */
+void (load_font)(void);
+
+/**
  * @brief Draw a character to the screen.
  * The char is only drawn if its image is available.
  * 

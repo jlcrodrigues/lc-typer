@@ -8,6 +8,9 @@ static int base_y;
 static int next_y;
 static int last_line;
 
+static Button exit_button;
+static Button next_button;
+
 static char phrases[LINESIZE];
 
 void game_create(Game* game) {
@@ -15,6 +18,17 @@ void game_create(Game* game) {
   game->player_position = 0;
   game->text = phrase;
   game->text_size = strlen(phrase)-2;
+  game->time_elapsed = 0;
+  game->typo_offset = 0;
+  game->typo_count = 0;
+  base_y = TEXT_Y_START;
+  last_line = 0;
+  exit_button = button_create(video_get_h_res() - FONT_WIDTH, PADDING, "x");
+  next_button = button_create(video_get_h_res() -  2 * (FONT_WIDTH + PADDING), PADDING, "n");
+}
+
+void game_restart(Game* game) {
+  game->player_position = 0;
   game->time_elapsed = 0;
   game->typo_offset = 0;
   game->typo_count = 0;
@@ -28,10 +42,17 @@ void game_draw(Game* game) {
     draw_wpm(game);
 }
 
-void game_handle_event(Game* game, Event event) {
-  if (event.type == KEYBOARD) {
-    if (event.info.keyboard.buff == 0x81) proj_set_state(MENU);
-    if (game->text[game->player_position] == event.info.keyboard.character
+void game_handle_event(Game* game, Event* event) {
+  if (exit_button.clicked) {
+    exit_button.clicked = 0;
+    proj_set_state(MENU);
+  }
+  if (next_button.clicked) {
+    next_button.clicked = 0;
+    proj_set_state(GAME);
+  }
+  if (event->type == KEYBOARD) {
+    if (game->text[game->player_position] == event->info.keyboard.character
         && !(game->typo_offset)) {
       if (game->player_position == 0) {
         rtc_start_counter();
@@ -42,18 +63,26 @@ void game_handle_event(Game* game, Event event) {
         proj_set_state(GAME_OVER);
       }
     }
-    else if (test_letter(event.info.keyboard.character)) {
+    else if (test_letter(event->info.keyboard.character)) {
       game->typo_offset++;
       game->typo_count++;
     }
-    else if (event.info.keyboard.buff == MAKECODE_BACKSPACE) {
+    else if (event->info.keyboard.buff == MAKECODE_BACKSPACE) {
       game->typo_offset--;
       game->typo_offset = (game->typo_offset < 0) ? 0 : game->typo_offset;
     }
+    if (event->info.keyboard.buff == BREAKCODE_ENTER)
+      proj_set_state(GAME);
+    if (event->info.keyboard.buff == BREAKCODE_ESC)
+      proj_set_state(MENU);
+    if (event->info.keyboard.buff == BREAKCODE_TAB)
+      game_restart(game);
   }
 }
 
-void game_step(Game* game, Event event) {
+void game_step(Game* game, Event* event) {
+  button_step(&exit_button, event);
+  button_step(&next_button, event);
   game_handle_event(game, event);
   game_draw(game);
 }
@@ -83,7 +112,7 @@ void draw_text(Game* game) {
       if (x_pos + MARGIN + get_sentence_width(next) > video_get_h_res()) {
         x_pos = MARGIN;
         y_pos += LINE_HEIGHT;
-        if (y_pos == TEXT_Y_START + 2 * (LINE_HEIGHT))
+        if (y_pos == TEXT_Y_START + (LINE_HEIGHT << 1))
           next_y = i;
       }
     }
