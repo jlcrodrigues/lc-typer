@@ -14,10 +14,10 @@ static Button next_button;
 static char phrases[LINESIZE];
 
 void game_create(Game* game) {
-  char * phrase = phrase_select("/home/lcom/labs/g02/proj/src/assets/phrases/lower_phrases.txt");
+  char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/lower_phrases.txt");
   game->player_position = 0;
   game->text = phrase;
-  game->text_size = strlen(phrase)-2;
+  game->text_size = strlen(phrase)-1;
   game->time_elapsed = 0;
   game->typo_offset = 0;
   game->typo_count = 0;
@@ -146,6 +146,10 @@ char* phrase_select(char* infile){
     while(getline(&str, &str_size, file)> 0){
         if(i==n){
             for (size_t j=0;j<str_size;j++){
+                if(str[j]=='\n'){
+                    phrases[j] = '\0';
+                    break;
+                }
                 phrases[j] = str[j];
             }
             break;

@@ -37,7 +37,7 @@ typedef struct Game {
 #include <stdlib.h>
 
 #define LINESIZE 2000
-#define NUMBER_OF_STRINGS 4
+#define NUMBER_OF_STRINGS 14
 #define NUM_LINES 3
 #define TEXT_Y_START 100
 #define TEXT_Y_MAX (TEXT_Y_START + NUM_LINES * LINE_HEIGHT)
