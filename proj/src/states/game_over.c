@@ -14,14 +14,12 @@ void game_over_init(void) {
 
 void game_over_draw(Game* game) {
   int16_t h_res = video_get_h_res();
-  int width, wpm;
-  if (game->time_elapsed == 0) wpm = 0;
-  else {
-    wpm = (int)(
-      ((double)(game->player_position) / 5)
-      / ((double)(game->time_elapsed) / 60)
-      );
-  }
+  int width;
+  int wpm = (int)(
+    ((double)(game->player_position) / 5)
+     / ((double)(game->time_elapsed) / 60)
+    );
+  game->wpm = wpm;
   int acc = (int)(
     ((double)(game->text_size) * 100)
      / ((double)(game->text_size + game->typo_count))
@@ -45,18 +43,22 @@ void game_over_draw(Game* game) {
 void game_over_handle_event(Game* game, Event event) {
   if (event.type == KEYBOARD) {
     if (event.info.keyboard.buff == BREAKCODE_ENTER) {
+      score_board_update(game);
       proj_set_state(GAME);
     }
     else if (event.info.keyboard.buff == BREAKCODE_ESC) {
+      score_board_update(game);
       proj_set_state(MENU);
     }
   }
   if (next_button.clicked) {
     next_button.clicked = 0;
+    score_board_update(game);
     proj_set_state(GAME);
   }
   if (exit_button.clicked) {
     next_button.clicked = 0;
+    score_board_update(game);
     proj_set_state(MENU);
   }
 }

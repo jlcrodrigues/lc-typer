@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  //lcf_log_output("/home/lcom/labs/proj/output.txt");
+  lcf_log_output("/home/lcom/labs/proj/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -86,6 +86,9 @@ void proj_set_state(State new_state) {
       break;
     case GAME_OVER:
       proj_step_state = proj_step_game_over;
+      break;
+    case SCORE:
+      proj_step_state = score_board_step;
       break;
     default:
       break;

@@ -5,6 +5,7 @@
 #include "driver.h"
 #include "button.h"
 #include "proj.h"
+#include "scoreboard.h"
 
 /** @defgroup state game_over
  * @{

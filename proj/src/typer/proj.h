@@ -14,7 +14,7 @@
  * Changing the state can by done by proj_set_state.
  * 
  */
-typedef enum {MENU, GAME, GAME_OVER, OVER} State;
+typedef enum {MENU, GAME, GAME_OVER, OVER, SCORE} State;
 
 #include <lcom/lcf.h>
 #include "driver.h"
@@ -23,6 +23,7 @@ typedef enum {MENU, GAME, GAME_OVER, OVER} State;
 #include "game_over.h"
 #include "alphabet.h"
 #include "mouse_sprite.h"
+#include "scoreboard.h"
 #include "button.h"
 
 /**

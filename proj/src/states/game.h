@@ -25,6 +25,8 @@ typedef struct Game {
   int typo_offset;
   /** @brief Overall amount of miss clicks. **/
   int typo_count;
+   /** @brief Final wpm result. **/
+  int wpm;
 } Game;
 
 #include <lcom/lcf.h>

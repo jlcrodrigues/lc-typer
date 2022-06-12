@@ -14,7 +14,7 @@ static Button next_button;
 static char phrases[LINESIZE];
 
 void game_create(Game* game) {
-  char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/lower_phrases.txt");
+  char * phrase = phrase_select("/home/lcom/labs/g02/proj/src/assets/phrases/lower_phrases.txt");
   game->player_position = 0;
   game->text = phrase;
   game->text_size = strlen(phrase)-2;
@@ -124,8 +124,9 @@ void draw_wpm(Game* game) {
   if (rtc_get_time_elapsed() == 0) return;
   int wpm = (int)(
     ((double)(game->player_position) / 5)
-     / ((double)(rtc_get_time_elapsed()) / 60) //TODO fix time count
+     / ((double)(rtc_get_time_elapsed()) / 60) 
     );
+  game->wpm = wpm;
   char wpm_str[4];
   sprintf(wpm_str, "%d", wpm);
   strcat(wpm_str, " wpm");
