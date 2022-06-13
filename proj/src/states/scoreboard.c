@@ -5,6 +5,8 @@ static char* sub_title =   "score   date     time";
 static char* line_format = "000 00000000 00000000";
 // static int n_scores = 5;
 
+static Button exit_button;
+
 int init = 0;
 static char score_board[LINESIZE];
 
@@ -24,6 +26,10 @@ void score_board_handle_event(Event event) {
             init = 0;
             proj_set_state(MENU);
         }
+    }
+    if (exit_button.clicked) {
+        exit_button.clicked = 0;
+        proj_set_state(MENU);
     }
 }
 
@@ -91,12 +97,15 @@ void get_score_board() {
         i++;
     }
     fclose(file);
-    init = 1;
 }
 
 void score_board_step(Event event) {
-    score_board_handle_event(event);
-    if (init == 0)
+    if (init == 0) {
         get_score_board();
+        exit_button = button_create(video_get_h_res() - FONT_WIDTH, PADDING, "x");
+        init = 1;
+    }
+    button_step(&exit_button, &event);
+    score_board_handle_event(event);
     score_board_draw();
 }
