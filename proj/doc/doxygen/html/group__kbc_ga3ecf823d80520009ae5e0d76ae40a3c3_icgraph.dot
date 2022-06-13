@@ -1,0 +1,12 @@
+digraph "mouse_unsubscribe_int"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="mouse_unsubscribe_int",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Unsubscribe mouse interrupts."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="unsubscribe_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#gac8b5629599158a4aef6bcfc68e4486cd",tooltip="Unsubscribe interrupts: keyboard, mouse, timer."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="proj_cleanup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga0abd5a76650a37316485757e04aa6112",tooltip="Cleans up the program. This function must be called before exiting the program."];
+}

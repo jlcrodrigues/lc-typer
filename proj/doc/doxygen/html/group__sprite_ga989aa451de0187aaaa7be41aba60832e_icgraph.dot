@@ -1,0 +1,22 @@
+digraph "get_sentence_width"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="get_sentence_width",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Get the width of a sentence on the screen."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="button_create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__ui.html#gaad21b65663707fce36abe289f001125c",tooltip="Create a button struct. This initializes all the required fields."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="menu_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga825deebad1aa530657673fb8a95a2565",tooltip="Starts up the menu state. There's no need to manually call this function, as it is used after the fir..."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="game_over_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gaf42f0526a8eabb241951f832af0afb3f",tooltip="Draw the game over state."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="menu_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gad9ca45d311aa34fff8adbde51c3f4c02",tooltip="Draws the menu to the screen."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="menu_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga1553739d257efdaeabc3d59f141ffbd9",tooltip="Handles events and draws the menu."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="score_board_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gafe59e043d95ec0c4562fe0c18e1c77c6",tooltip="Draw score board state."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="score_board_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga80d7aa6764eb1fb3072a73ef71b76a16",tooltip="Handles events and draws leaderboard."];
+}

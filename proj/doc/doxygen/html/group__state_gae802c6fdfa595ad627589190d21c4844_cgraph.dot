@@ -1,0 +1,10 @@
+digraph "menu_handle_event"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="menu_handle_event",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handle an event."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="proj_set_state",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#gaba55204dd6584125479aa201ac938688",tooltip="Changes the current state of the programing. This function changes the execution state and makes the ..."];
+}

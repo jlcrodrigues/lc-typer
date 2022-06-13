@@ -1,0 +1,24 @@
+digraph "game_step"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="game_step",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw the game and handle the latest event. This function calls game_draw and game_handle_event."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="button_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__ui.html#ga08a9ca92189ffe879e75fd1dc4d7cc4a",tooltip="Call this function once per iteration. It calls button_draw and button_handle_event."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="game_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga0dec65525a8e25b82783c56f3d557a78",tooltip="Draw a game on the screen. Drawing the game means drawing every necessary element for the game state."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="draw_text",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga987b197ae02c6d2c38a8122ab5a41266",tooltip="Draw the game main text."];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="draw_wpm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gae0e6d68f41db70e3372bcd6130218173",tooltip="Draw the player's live speed."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="draw_sentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#ga0c7ce81fa8c864c43c35491b88401983",tooltip="Draw a whole sentence to the screen. The function separates the letters and marks spaces."];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="rtc_get_time_elapsed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga7e2c7ec65ade04e17d09a8e416896ffc",tooltip="Retrieve time elapsed, in seconds, since the counter was started."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="game_handle_event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga9879089449356f48bb8b7139a500c71f",tooltip="Handle the latest event. Updates the game values according to it."];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="proj_set_state",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#gaba55204dd6584125479aa201ac938688",tooltip="Changes the current state of the programing. This function changes the execution state and makes the ..."];
+}

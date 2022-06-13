@@ -1,0 +1,20 @@
+digraph "src/drivers"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_68267d1309a1af8e8297ef4c3efbcdba {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,dashed,", label="src", fontname="Helvetica", fontsize="10", URL="dir_68267d1309a1af8e8297ef4c3efbcdba.html"]
+  subgraph clusterdir_c718a368270b13c54d94892d20736f45 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_c718a368270b13c54d94892d20736f45.html"]
+    dir_c718a368270b13c54d94892d20736f45 [shape=plaintext, label="drivers"];
+  dir_77ab2e6650f88c91c1a43d78c7881c28 [shape=box, label="driver", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_77ab2e6650f88c91c1a43d78c7881c28.html"];
+  dir_eb7024bd73f2ac35264517788a3ec82c [shape=box, label="kbc", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_eb7024bd73f2ac35264517788a3ec82c.html"];
+  dir_b42f7877bf00bb462571d21ed28d3064 [shape=box, label="rtc", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_b42f7877bf00bb462571d21ed28d3064.html"];
+  dir_49f3dec99bf6dde86d674e3c10e8e4ee [shape=box, label="timer", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_49f3dec99bf6dde86d674e3c10e8e4ee.html"];
+  dir_d12a978ecd4b8c91d4ad5038ddc9bd9d [shape=box, label="utils", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_d12a978ecd4b8c91d4ad5038ddc9bd9d.html"];
+  dir_9df91090f0991f9d8780ab792f58f5cf [shape=box, label="video", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_9df91090f0991f9d8780ab792f58f5cf.html"];
+  }
+  }
+}

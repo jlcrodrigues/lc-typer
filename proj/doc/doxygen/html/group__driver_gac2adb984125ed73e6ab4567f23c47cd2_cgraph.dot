@@ -1,0 +1,22 @@
+digraph "subscribe_interrupts"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="subscribe_interrupts",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Subscribe interrupts: keyboard, mouse, timer."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="keyboard_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga178b1db0b319dccad2840cc3fd273132",tooltip="Subscribe keyboard interrupts and disable Minix default handler."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="mouse_set_data_reporting",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga4d9635de3822207c02c436094dcc8faa",tooltip="Enable and disable mouse data reporting."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="send_mouse_cmd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga82f99b946c248938565834b226f08b1b",tooltip="Send a command to the mouse."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="mouse_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga20285aed4b3ef45812cd967532dd09db",tooltip="Subscribe mouse interrupts and disable Minix's default handler."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="rtc_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga1964e6235dada06fa7ee91e7b8da02dd",tooltip="Initializes the RTC. Call this function before starting to use it."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="rtc_read_register",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga4ebd09baf3ebabb95fb10303cd4f7a62",tooltip="Read an rtc register."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="rtc_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga5171a9c0f54940fe60f7500896afcc86",tooltip="Subscribe real time clock interrupts."];
+}

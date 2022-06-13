@@ -1,0 +1,18 @@
+digraph "unsubscribe_interrupts"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="unsubscribe_interrupts",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Unsubscribe interrupts: keyboard, mouse, timer."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="keyboard_unsubscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga32cc4de66854f8a7bd909e7aa8b901ed",tooltip="Unsubscribe keyboard interrupts."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="mouse_set_data_reporting",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga4d9635de3822207c02c436094dcc8faa",tooltip="Enable and disable mouse data reporting."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="send_mouse_cmd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga82f99b946c248938565834b226f08b1b",tooltip="Send a command to the mouse."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="mouse_unsubscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga3ecf823d80520009ae5e0d76ae40a3c3",tooltip="Unsubscribe mouse interrupts."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="rtc_unsubscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga5b1cba4be2c15183b9f2c089fe6e946a",tooltip="Unsubscribe RTC interrupts."];
+}

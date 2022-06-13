@@ -1,0 +1,10 @@
+digraph "button_create"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="button_create",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Create a button struct. This initializes all the required fields."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="get_sentence_width",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#ga989aa451de0187aaaa7be41aba60832e",tooltip="Get the width of a sentence on the screen."];
+}

@@ -1,0 +1,10 @@
+digraph "button_handle_event"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="button_handle_event",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Process events related to a button. This functions fetches the in-use mouse sprite and changes the bu..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="proj_get_mouse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga45a10ba95543e36a52ea663449830c9c",tooltip="Get a pointer to the project's mouse sprite. This can be useful to check for mouse collision e...."];
+}

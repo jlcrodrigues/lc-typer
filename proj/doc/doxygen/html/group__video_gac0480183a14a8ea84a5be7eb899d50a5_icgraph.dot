@@ -1,0 +1,10 @@
+digraph "vbe_set_display_start"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="vbe_set_display_start",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Set the pixel to be displayed in the upper left corner of the display."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="vg_refresh",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__video.html#ga04ae3900486ab2a29644ba74fa988401",tooltip="Trigger a screen re-draw."];
+}

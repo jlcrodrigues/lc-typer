@@ -1,0 +1,10 @@
+digraph "game_over_step"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="game_over_step",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw the state and handle the latest event. This function calls game_over_draw and game_over_handle_e..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="proj_step_game_over",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga4014f78e7206bffda575b902de337203",tooltip="Step function when the state is GAME_OVER. This function is needed to use on the step function pointe..."];
+}
