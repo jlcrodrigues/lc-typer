@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SCORE_FILE "/home/lcom/labs/g02/proj/src/assets/scores/scores.txt"
+#define SCORE_FILE "/home/lcom/labs/proj/src/assets/scores/scores.txt"
 #define N_SCORES 5
 #define LINE_SIZE 30
 

@@ -10,6 +10,7 @@
 static char *video_mem; /* Process (virtual) address to which VRAM is mapped */
 static char *buff; /* Used for double buffering */
 static vbe_mode_info_t mode_info;
+static mmap_t mem_map;
 
 static unsigned h_res;          /* Horizontal resolution in pixels */
 static unsigned v_res;          /* Vertical resolution in pixels */
@@ -49,6 +50,29 @@ int(map_memory)(vbe_mode_info_t mode_info) {
   return 0;
 }
 
+int (vbe_get_info_from_mode)(uint16_t mode){
+    reg86_t r86;
+    memset(&r86, 0, sizeof(reg86_t));
+    memset(&mode_info,0, sizeof(vbe_mode_info_t));  /* clear the info of the mode*/
+
+    vbe_mode_info_t *mode_info_address = lm_alloc(sizeof(vbe_mode_info_t),&mem_map);
+    r86.intno = 0x10; /* BIOS video services */
+    r86.ah = 0x4F;    /* Set Video Mode function */
+    r86.al = 0x01;    /* set video mode  */
+    r86.cx = mode | BIT(14);
+    r86.es = PB2BASE(mem_map.phys);
+    r86.di = PB2OFF(mem_map.phys);
+    if(sys_int86(&r86)!= OK || r86.ah != 0X00){
+        printf("\tvg_init(): sys_int86() failed \n");
+        if (!lm_free(&mem_map)){
+            printf("\tvg_init(): lm_free failed \n");
+        }
+        return 1;
+    }
+    memcpy((void*)&mode_info,(void*)mode_info_address,mem_map.size);
+    return 0;
+}
+
 void *(set_mode) (uint16_t mode) {
   reg86_t r86;
   /* Specify the appropriate register values */
@@ -69,7 +93,7 @@ void *(set_mode) (uint16_t mode) {
 }
 
 void *(vg_init) (uint16_t mode) {
-  if (vbe_get_mode_info(mode, &mode_info))
+  if (vbe_get_info_from_mode(mode))
     return NULL;
 
   h_res = mode_info.XResolution;

@@ -31,6 +31,13 @@
 int (map_memory)(vbe_mode_info_t mode_info);
 
 /**
+ * @brief Obtains all the information about the specific mode
+ * @param mode 2 byte hex value of the intended operating mode.
+ * @return int 0 upon success, non-zero otherwise
+ */
+int (vbe_get_info_from_mode)(uint16_t mode);
+
+/**
  * @brief Change the graphic's card operating mode.
  * @param mode 2 byte hex value of the intended operating mode.
  * @return Pointer to the mapped video memory.
