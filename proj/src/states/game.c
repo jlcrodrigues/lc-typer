@@ -13,6 +13,8 @@ static Button next_button;
 
 static char phrases[LINESIZE];
 
+static int cursor_on = 1;
+
 void game_create(Game* game) {
   char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/lower_phrases.txt");
   game->player_position = 0;
@@ -78,6 +80,11 @@ void game_handle_event(Game* game, Event* event) {
     if (event->info.keyboard.buff == BREAKCODE_TAB)
       game_restart(game);
   }
+  if (event->type == TIMER) {
+    if (!(event->info.timer.count_interrupts % 30)) {
+      cursor_on = (cursor_on) ? 0 : 1;
+    }
+  }
 }
 
 void game_step(Game* game, Event* event) {
@@ -103,6 +110,13 @@ void draw_text(Game* game) {
       }
       else {
         draw_char(game->text[i], x_pos, y_pos, secondary_color);
+      }
+      
+      if (cursor_on) {
+        if ((i == game->player_position && game->typo_offset == 0)
+          || i == (game->player_position + game->typo_offset)) {
+          vg_draw_rectangle(x_pos, y_pos + 5, 5, FONT_HEIGHT - 10, primary_color);
+        }
       }
     }
     x_pos += PADDING + FONT_WIDTH;

@@ -63,8 +63,8 @@ void proj_step(void) {
   proj_step_state(event);
   mouse_sprite_step(&mouse, event);
   if (event.type == TIMER) {
-    if (event.info.timer.count_interrupts % 4)
-      vg_refresh(); //TODO make refresh dependant of timer
+    if (event.info.timer.count_interrupts % 2)
+      vg_refresh();
   }
 }
 
