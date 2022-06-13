@@ -16,10 +16,10 @@ static char phrases[LINESIZE];
 static int cursor_on = 1;
 
 void game_create(Game* game) {
-  char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/lower_phrases.txt");
+  char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/phrases.txt");
   game->player_position = 0;
   game->text = phrase;
-  game->text_size = strlen(phrase)-1;
+  game->text_size = strlen(phrase);
   game->time_elapsed = 0;
   game->typo_offset = 0;
   game->typo_count = 0;
