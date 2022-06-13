@@ -5,21 +5,25 @@ static char* sub_title =   "score   date     time";
 static char* line_format = "000 00000000 00000000";
 // static int n_scores = 5;
 
+int init = 0;
+static char score_board[LINESIZE];
+
 void score_board_draw() {
     int middle = video_get_h_res() / 2;
-    draw_sentence(title, middle - get_sentence_width(title) / 2, 100, PRIMARY_COLOR);
-    draw_sentence(sub_title, middle - get_sentence_width(sub_title) / 2, 200, ACCENT_COLOR);
+    draw_sentence(title, middle - (get_sentence_width(title) >> 1), 100, PRIMARY_COLOR);
+    draw_sentence(sub_title, middle - (get_sentence_width(sub_title) >> 1) , 200, ACCENT_COLOR);
 
 
     int y_pos = 300;
-    char* score_string = get_score_board();
-    draw_sentence(score_string, middle - get_sentence_width(line_format) / 2, y_pos, SECONDARY_COLOR);
+    draw_sentence(score_board, middle - (get_sentence_width(line_format) >> 1), y_pos, SECONDARY_COLOR);
 }
 
 void score_board_handle_event(Event event) {
     if (event.type == KEYBOARD) {
-        if (event.info.keyboard.buff == 0x81)
+        if (event.info.keyboard.buff == 0x81)  {
+            init = 0;
             proj_set_state(MENU);
+        }
     }
 }
 
@@ -73,14 +77,13 @@ int score_board_update(Game *game) {
     return 0;
 }
 
-char* get_score_board() {
+void get_score_board() {
     FILE *file;
     if((file = fopen(SCORE_FILE,"r"))== NULL){
         perror("cannot open file");
-        return NULL;
+        return;
     }
 
-    static char score_board[LINESIZE];
     char c;
     int i = 0;
     while((c = fgetc(file)) != EOF) {
@@ -88,10 +91,12 @@ char* get_score_board() {
         i++;
     }
     fclose(file);
-    return score_board;
+    init = 1;
 }
 
 void score_board_step(Event event) {
     score_board_handle_event(event);
+    if (init == 0)
+        get_score_board();
     score_board_draw();
 }

@@ -41,10 +41,10 @@ void score_board_handle_event(Event event);
 int score_board_update(Game* game);
 
 /**
- * @brief Getter for score board.
+ * @brief Load the score board.
  * 
  */
-char* get_score_board();
+void get_score_board();
 
 /**
  * @brief Handles events and draws leaderboard. 
