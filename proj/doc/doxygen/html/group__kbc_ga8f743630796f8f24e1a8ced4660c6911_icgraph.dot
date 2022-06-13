@@ -1,0 +1,12 @@
+digraph "mouse_get_event"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="mouse_get_event",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="If all packets have been set, it generates an Event with mouse data."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="interrupt_handler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga8d679d7e0fb4f784c89027334a358061",tooltip="Checks for interrupts. If any occurred, creates a Event struct with all the necessary information."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="proj_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga18a59545b1933d88ab8dacb9fa33ce01",tooltip="Runs a step of the program. This should be done once per iteration. The function checks for interrupt..."];
+}

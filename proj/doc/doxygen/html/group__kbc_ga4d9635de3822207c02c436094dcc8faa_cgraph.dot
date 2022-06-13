@@ -1,0 +1,10 @@
+digraph "mouse_set_data_reporting"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="mouse_set_data_reporting",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Enable and disable mouse data reporting."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="send_mouse_cmd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga82f99b946c248938565834b226f08b1b",tooltip="Send a command to the mouse."];
+}

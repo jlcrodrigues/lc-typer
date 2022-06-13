@@ -1,0 +1,12 @@
+digraph "game_draw"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="game_draw",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw a game on the screen. Drawing the game means drawing every necessary element for the game state."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="game_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gadcf9f503ff3bab6327591bce6f82edc9",tooltip="Draw the game and handle the latest event. This function calls game_draw and game_handle_event."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="proj_step_game",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga32291401113bb3fa9c0a58437a013371",tooltip="Step function when the state is GAME. This function is needed to use on the step function pointer...."];
+}

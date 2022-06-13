@@ -1,0 +1,20 @@
+digraph "score_board_step"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="score_board_step",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles events and draws leaderboard."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="get_score_board",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga33619aeb1eb54b5dc2e02d9c36cfd343",tooltip="Load the score board."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="score_board_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gafe59e043d95ec0c4562fe0c18e1c77c6",tooltip="Draw score board state."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="draw_sentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#ga0c7ce81fa8c864c43c35491b88401983",tooltip="Draw a whole sentence to the screen. The function separates the letters and marks spaces."];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="get_sentence_width",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#ga989aa451de0187aaaa7be41aba60832e",tooltip="Get the width of a sentence on the screen."];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="video_get_h_res",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__video.html#ga327f8b6cdb5a87f7f65c89047f15b8b8",tooltip="Get the horizontal resolution of the screen."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="score_board_handle\l_event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga3559148771b1d2b88b52781a063f01dd",tooltip="Handle event."];
+}

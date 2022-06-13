@@ -1,0 +1,26 @@
+digraph "interrupt_handler"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="interrupt_handler",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Checks for interrupts. If any occurred, creates a Event struct with all the necessary information."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="get_packets_count",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#gae03c8809dafa5deb8ae615bbc09720df",tooltip="Get the amount of packets read."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="kbc_ih",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#gaea970a154161a35f6894898a092ed70a",tooltip="Handle keyboard interrupts. Reads scan codes and sets read_ok when the reading is successful."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="keyboard_get_event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga95ada960b6b47c03078e21ef80f760bd",tooltip="After the interrupts is done, get a Event struct from the keyboard interrupt."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="keyboard_is_complete",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga12b66310d9c9a74da69b73ed5a45d5ff",tooltip="Check if the keyboard interrupt has been concluded."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="mouse_get_event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__kbc.html#ga8f743630796f8f24e1a8ced4660c6911",tooltip="If all packets have been set, it generates an Event with mouse data."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="rtc_ih",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga46a3900840f7cfabdc6225622ffd88c6",tooltip="Handle RTC interrupts. For update interrupts, the data variables are updates and no further action is..."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="rtc_read_register",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__driver.html#ga4ebd09baf3ebabb95fb10303cd4f7a62",tooltip="Read an rtc register."];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="timer_get_event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__timer.html#ga94cd06c806908578a30df457142f6a2e",tooltip="Get an event from a timer interrupt."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="timer_ih",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__timer.html#ga10f5cff6c13044d58fd5c00f68a59809",tooltip="Handle timer interrupts."];
+}

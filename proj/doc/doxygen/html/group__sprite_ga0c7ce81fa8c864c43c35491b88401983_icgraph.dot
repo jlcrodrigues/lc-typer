@@ -1,0 +1,26 @@
+digraph "draw_sentence"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="draw_sentence",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw a whole sentence to the screen. The function separates the letters and marks spaces."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="draw_wpm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gae0e6d68f41db70e3372bcd6130218173",tooltip="Draw the player's live speed."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="game_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga0dec65525a8e25b82783c56f3d557a78",tooltip="Draw a game on the screen. Drawing the game means drawing every necessary element for the game state."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="game_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gadcf9f503ff3bab6327591bce6f82edc9",tooltip="Draw the game and handle the latest event. This function calls game_draw and game_handle_event."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="proj_step_game",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__proj.html#ga32291401113bb3fa9c0a58437a013371",tooltip="Step function when the state is GAME. This function is needed to use on the step function pointer...."];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="game_over_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gaf42f0526a8eabb241951f832af0afb3f",tooltip="Draw the game over state."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="menu_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gad9ca45d311aa34fff8adbde51c3f4c02",tooltip="Draws the menu to the screen."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="menu_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga1553739d257efdaeabc3d59f141ffbd9",tooltip="Handles events and draws the menu."];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="score_board_draw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#gafe59e043d95ec0c4562fe0c18e1c77c6",tooltip="Draw score board state."];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="score_board_step",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__state.html#ga80d7aa6764eb1fb3072a73ef71b76a16",tooltip="Handles events and draws leaderboard."];
+}
