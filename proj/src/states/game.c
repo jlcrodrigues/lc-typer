@@ -19,7 +19,7 @@ void game_create(Game* game) {
   char * phrase = phrase_select("/home/lcom/labs/proj/src/assets/phrases/phrases.txt");
   game->player_position = 0;
   game->text = phrase;
-  game->text_size = strlen(phrase);
+  game->text_size = strlen(phrase) - 1;
   game->time_elapsed = 0;
   game->typo_offset = 0;
   game->typo_count = 0;

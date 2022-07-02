@@ -60,10 +60,10 @@ void proj_step(void) {
   if (!interrupt_handler()) // no interrupts
     return;
   Event event = get_event();
-  proj_step_state(event);
   mouse_sprite_step(&mouse, event);
+  proj_step_state(event);
   if (event.type == TIMER) {
-    if (event.info.timer.count_interrupts % 2)
+    if (event.info.timer.count_interrupts % 4)
       vg_refresh();
   }
 }

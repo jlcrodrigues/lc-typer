@@ -7,17 +7,19 @@ static char* line_format = "000 00000000 00000000";
 
 static Button exit_button;
 
-int init = 0;
+static int init = 0;
 static char score_board[LINESIZE];
+
+static int title_len, sub_title_len, score_len;
 
 void score_board_draw() {
     int middle = video_get_h_res() / 2;
-    draw_sentence(title, middle - (get_sentence_width(title) >> 1), 100, PRIMARY_COLOR);
-    draw_sentence(sub_title, middle - (get_sentence_width(sub_title) >> 1) , 200, ACCENT_COLOR);
+    draw_sentence(title, middle - (title_len >> 1), 100, PRIMARY_COLOR);
+    draw_sentence(sub_title, middle - (sub_title_len >> 1) , 200, ACCENT_COLOR);
 
 
     int y_pos = 300;
-    draw_sentence(score_board, middle - (get_sentence_width(line_format) >> 1), y_pos, SECONDARY_COLOR);
+    draw_sentence(score_board, middle - (score_len >> 1), y_pos, SECONDARY_COLOR);
 }
 
 void score_board_handle_event(Event event) {
@@ -28,6 +30,7 @@ void score_board_handle_event(Event event) {
         }
     }
     if (exit_button.clicked) {
+        init = 0;
         exit_button.clicked = 0;
         proj_set_state(MENU);
     }
@@ -103,6 +106,9 @@ void score_board_step(Event event) {
     if (init == 0) {
         get_score_board();
         exit_button = button_create(video_get_h_res() - FONT_WIDTH, PADDING, "x");
+        title_len = get_sentence_width(title);
+        sub_title_len = get_sentence_width(sub_title);
+        score_len = get_sentence_width(line_format);
         init = 1;
     }
     button_step(&exit_button, &event);
